@@ -711,7 +711,7 @@ class TestMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = client.objects.with_raw_response.retrieve(0)
+        response = client.met_objects.with_raw_response.retrieve(0)
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -735,7 +735,7 @@ class TestMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = client.objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.met_objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -758,7 +758,7 @@ class TestMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = client.objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": "42"})
+        response = client.met_objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1435,7 +1435,7 @@ class TestAsyncMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = await client.objects.with_raw_response.retrieve(0)
+        response = await client.met_objects.with_raw_response.retrieve(0)
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1460,7 +1460,9 @@ class TestAsyncMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = await client.objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.met_objects.with_raw_response.retrieve(
+            0, extra_headers={"x-stainless-retry-count": Omit()}
+        )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1484,6 +1486,8 @@ class TestAsyncMetMuseum:
 
         respx_mock.get("/objects/0").mock(side_effect=retry_handler)
 
-        response = await client.objects.with_raw_response.retrieve(0, extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.met_objects.with_raw_response.retrieve(
+            0, extra_headers={"x-stainless-retry-count": "42"}
+        )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

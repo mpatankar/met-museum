@@ -7,7 +7,7 @@ from datetime import date
 
 import httpx
 
-from ..types import object_list_params
+from ..types import met_object_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -22,31 +22,31 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.object import Object
-from ..types.objects import Objects
+from ..types.art_object import ArtObject
+from ..types.art_objects import ArtObjects
 
-__all__ = ["ObjectsResource", "AsyncObjectsResource"]
+__all__ = ["MetObjectsResource", "AsyncMetObjectsResource"]
 
 
-class ObjectsResource(SyncAPIResource):
+class MetObjectsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ObjectsResourceWithRawResponse:
+    def with_raw_response(self) -> MetObjectsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#accessing-raw-response-data-eg-headers
         """
-        return ObjectsResourceWithRawResponse(self)
+        return MetObjectsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ObjectsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> MetObjectsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#with_streaming_response
         """
-        return ObjectsResourceWithStreamingResponse(self)
+        return MetObjectsResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
@@ -58,7 +58,7 @@ class ObjectsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Object:
+    ) -> ArtObject:
         """
         returns a record for an object, containing all open access data about that
         object, including its image (if the image is available under Open Access)
@@ -77,7 +77,7 @@ class ObjectsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Object,
+            cast_to=ArtObject,
         )
 
     def list(
@@ -91,7 +91,7 @@ class ObjectsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Objects:
+    ) -> ArtObjects:
         """
         returns a listing of all valid Object IDs available to use
 
@@ -121,32 +121,32 @@ class ObjectsResource(SyncAPIResource):
                         "department_ids": department_ids,
                         "metadata_date": metadata_date,
                     },
-                    object_list_params.ObjectListParams,
+                    met_object_list_params.MetObjectListParams,
                 ),
             ),
-            cast_to=Objects,
+            cast_to=ArtObjects,
         )
 
 
-class AsyncObjectsResource(AsyncAPIResource):
+class AsyncMetObjectsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncObjectsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncMetObjectsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncObjectsResourceWithRawResponse(self)
+        return AsyncMetObjectsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncObjectsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncMetObjectsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#with_streaming_response
         """
-        return AsyncObjectsResourceWithStreamingResponse(self)
+        return AsyncMetObjectsResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
@@ -158,7 +158,7 @@ class AsyncObjectsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Object:
+    ) -> ArtObject:
         """
         returns a record for an object, containing all open access data about that
         object, including its image (if the image is available under Open Access)
@@ -177,7 +177,7 @@ class AsyncObjectsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Object,
+            cast_to=ArtObject,
         )
 
     async def list(
@@ -191,7 +191,7 @@ class AsyncObjectsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Objects:
+    ) -> ArtObjects:
         """
         returns a listing of all valid Object IDs available to use
 
@@ -221,56 +221,56 @@ class AsyncObjectsResource(AsyncAPIResource):
                         "department_ids": department_ids,
                         "metadata_date": metadata_date,
                     },
-                    object_list_params.ObjectListParams,
+                    met_object_list_params.MetObjectListParams,
                 ),
             ),
-            cast_to=Objects,
+            cast_to=ArtObjects,
         )
 
 
-class ObjectsResourceWithRawResponse:
-    def __init__(self, objects: ObjectsResource) -> None:
-        self._objects = objects
+class MetObjectsResourceWithRawResponse:
+    def __init__(self, met_objects: MetObjectsResource) -> None:
+        self._met_objects = met_objects
 
         self.retrieve = to_raw_response_wrapper(
-            objects.retrieve,
+            met_objects.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            objects.list,
+            met_objects.list,
         )
 
 
-class AsyncObjectsResourceWithRawResponse:
-    def __init__(self, objects: AsyncObjectsResource) -> None:
-        self._objects = objects
+class AsyncMetObjectsResourceWithRawResponse:
+    def __init__(self, met_objects: AsyncMetObjectsResource) -> None:
+        self._met_objects = met_objects
 
         self.retrieve = async_to_raw_response_wrapper(
-            objects.retrieve,
+            met_objects.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            objects.list,
+            met_objects.list,
         )
 
 
-class ObjectsResourceWithStreamingResponse:
-    def __init__(self, objects: ObjectsResource) -> None:
-        self._objects = objects
+class MetObjectsResourceWithStreamingResponse:
+    def __init__(self, met_objects: MetObjectsResource) -> None:
+        self._met_objects = met_objects
 
         self.retrieve = to_streamed_response_wrapper(
-            objects.retrieve,
+            met_objects.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            objects.list,
+            met_objects.list,
         )
 
 
-class AsyncObjectsResourceWithStreamingResponse:
-    def __init__(self, objects: AsyncObjectsResource) -> None:
-        self._objects = objects
+class AsyncMetObjectsResourceWithStreamingResponse:
+    def __init__(self, met_objects: AsyncMetObjectsResource) -> None:
+        self._met_objects = met_objects
 
         self.retrieve = async_to_streamed_response_wrapper(
-            objects.retrieve,
+            met_objects.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            objects.list,
+            met_objects.list,
         )
