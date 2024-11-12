@@ -1,33 +1,33 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .objects import (
-    ObjectsResource,
-    AsyncObjectsResource,
-    ObjectsResourceWithRawResponse,
-    AsyncObjectsResourceWithRawResponse,
-    ObjectsResourceWithStreamingResponse,
-    AsyncObjectsResourceWithStreamingResponse,
+from .met_objects import (
+    MetObjectsResource,
+    AsyncMetObjectsResource,
+    MetObjectsResourceWithRawResponse,
+    AsyncMetObjectsResourceWithRawResponse,
+    MetObjectsResourceWithStreamingResponse,
+    AsyncMetObjectsResourceWithStreamingResponse,
 )
-from .departments import (
-    DepartmentsResource,
-    AsyncDepartmentsResource,
-    DepartmentsResourceWithRawResponse,
-    AsyncDepartmentsResourceWithRawResponse,
-    DepartmentsResourceWithStreamingResponse,
-    AsyncDepartmentsResourceWithStreamingResponse,
+from .met_departments import (
+    MetDepartmentsResource,
+    AsyncMetDepartmentsResource,
+    MetDepartmentsResourceWithRawResponse,
+    AsyncMetDepartmentsResourceWithRawResponse,
+    MetDepartmentsResourceWithStreamingResponse,
+    AsyncMetDepartmentsResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "ObjectsResource",
-    "AsyncObjectsResource",
-    "ObjectsResourceWithRawResponse",
-    "AsyncObjectsResourceWithRawResponse",
-    "ObjectsResourceWithStreamingResponse",
-    "AsyncObjectsResourceWithStreamingResponse",
-    "DepartmentsResource",
-    "AsyncDepartmentsResource",
-    "DepartmentsResourceWithRawResponse",
-    "AsyncDepartmentsResourceWithRawResponse",
-    "DepartmentsResourceWithStreamingResponse",
-    "AsyncDepartmentsResourceWithStreamingResponse",
+    "MetObjectsResource",
+    "AsyncMetObjectsResource",
+    "MetObjectsResourceWithRawResponse",
+    "AsyncMetObjectsResourceWithRawResponse",
+    "MetObjectsResourceWithStreamingResponse",
+    "AsyncMetObjectsResourceWithStreamingResponse",
+    "MetDepartmentsResource",
+    "AsyncMetDepartmentsResource",
+    "MetDepartmentsResourceWithRawResponse",
+    "AsyncMetDepartmentsResourceWithRawResponse",
+    "MetDepartmentsResourceWithStreamingResponse",
+    "AsyncMetDepartmentsResourceWithStreamingResponse",
 ]

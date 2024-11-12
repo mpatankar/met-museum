@@ -16,28 +16,28 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.departments import Departments
 
-__all__ = ["DepartmentsResource", "AsyncDepartmentsResource"]
+__all__ = ["MetDepartmentsResource", "AsyncMetDepartmentsResource"]
 
 
-class DepartmentsResource(SyncAPIResource):
+class MetDepartmentsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> DepartmentsResourceWithRawResponse:
+    def with_raw_response(self) -> MetDepartmentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#accessing-raw-response-data-eg-headers
         """
-        return DepartmentsResourceWithRawResponse(self)
+        return MetDepartmentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> DepartmentsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> MetDepartmentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#with_streaming_response
         """
-        return DepartmentsResourceWithStreamingResponse(self)
+        return MetDepartmentsResourceWithStreamingResponse(self)
 
     def list(
         self,
@@ -59,25 +59,25 @@ class DepartmentsResource(SyncAPIResource):
         )
 
 
-class AsyncDepartmentsResource(AsyncAPIResource):
+class AsyncMetDepartmentsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncDepartmentsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncMetDepartmentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncDepartmentsResourceWithRawResponse(self)
+        return AsyncMetDepartmentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncDepartmentsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncMetDepartmentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/met-museum-python#with_streaming_response
         """
-        return AsyncDepartmentsResourceWithStreamingResponse(self)
+        return AsyncMetDepartmentsResourceWithStreamingResponse(self)
 
     async def list(
         self,
@@ -99,37 +99,37 @@ class AsyncDepartmentsResource(AsyncAPIResource):
         )
 
 
-class DepartmentsResourceWithRawResponse:
-    def __init__(self, departments: DepartmentsResource) -> None:
-        self._departments = departments
+class MetDepartmentsResourceWithRawResponse:
+    def __init__(self, met_departments: MetDepartmentsResource) -> None:
+        self._met_departments = met_departments
 
         self.list = to_raw_response_wrapper(
-            departments.list,
+            met_departments.list,
         )
 
 
-class AsyncDepartmentsResourceWithRawResponse:
-    def __init__(self, departments: AsyncDepartmentsResource) -> None:
-        self._departments = departments
+class AsyncMetDepartmentsResourceWithRawResponse:
+    def __init__(self, met_departments: AsyncMetDepartmentsResource) -> None:
+        self._met_departments = met_departments
 
         self.list = async_to_raw_response_wrapper(
-            departments.list,
+            met_departments.list,
         )
 
 
-class DepartmentsResourceWithStreamingResponse:
-    def __init__(self, departments: DepartmentsResource) -> None:
-        self._departments = departments
+class MetDepartmentsResourceWithStreamingResponse:
+    def __init__(self, met_departments: MetDepartmentsResource) -> None:
+        self._met_departments = met_departments
 
         self.list = to_streamed_response_wrapper(
-            departments.list,
+            met_departments.list,
         )
 
 
-class AsyncDepartmentsResourceWithStreamingResponse:
-    def __init__(self, departments: AsyncDepartmentsResource) -> None:
-        self._departments = departments
+class AsyncMetDepartmentsResourceWithStreamingResponse:
+    def __init__(self, met_departments: AsyncMetDepartmentsResource) -> None:
+        self._met_departments = met_departments
 
         self.list = async_to_streamed_response_wrapper(
-            departments.list,
+            met_departments.list,
         )

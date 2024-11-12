@@ -31,10 +31,10 @@ from met_museum import MetMuseum
 
 client = MetMuseum()
 
-object = client.objects.retrieve(
+art_object = client.met_objects.retrieve(
     NaN,
 )
-print(object.artist_wikidata_url)
+print(art_object.artist_wikidata_url)
 ```
 
 ## Async usage
@@ -49,10 +49,10 @@ client = AsyncMetMuseum()
 
 
 async def main() -> None:
-    object = await client.objects.retrieve(
+    art_object = await client.met_objects.retrieve(
         NaN,
     )
-    print(object.artist_wikidata_url)
+    print(art_object.artist_wikidata_url)
 
 
 asyncio.run(main())
@@ -85,7 +85,7 @@ from met_museum import MetMuseum
 client = MetMuseum()
 
 try:
-    client.objects.retrieve(
+    client.met_objects.retrieve(
         NaN,
     )
 except met_museum.APIConnectionError as e:
@@ -130,7 +130,7 @@ client = MetMuseum(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).objects.retrieve(
+client.with_options(max_retries=5).met_objects.retrieve(
     NaN,
 )
 ```
@@ -155,7 +155,7 @@ client = MetMuseum(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).objects.retrieve(
+client.with_options(timeout=5.0).met_objects.retrieve(
     NaN,
 )
 ```
@@ -196,13 +196,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from met_museum import MetMuseum
 
 client = MetMuseum()
-response = client.objects.with_raw_response.retrieve(
+response = client.met_objects.with_raw_response.retrieve(
     NaN,
 )
 print(response.headers.get('X-My-Header'))
 
-object_ = response.parse()  # get the object that `objects.retrieve()` would have returned
-print(object_.artist_wikidata_url)
+met_object = response.parse()  # get the object that `met_objects.retrieve()` would have returned
+print(met_object.artist_wikidata_url)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/met-museum-python/tree/main/src/met_museum/_response.py) object.
@@ -216,7 +216,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.objects.with_streaming_response.retrieve(
+with client.met_objects.with_streaming_response.retrieve(
     NaN,
 ) as response:
     print(response.headers.get("X-My-Header"))

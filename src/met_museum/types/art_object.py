@@ -6,7 +6,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Object", "Constituent", "Measurement", "MeasurementElementMeasurements", "Tag"]
+__all__ = ["ArtObject", "Constituent", "Measurement", "MeasurementElementMeasurements", "Tag"]
 
 
 class Constituent(BaseModel):
@@ -47,7 +47,7 @@ class Tag(BaseModel):
     wikidata_url: Optional[str] = FieldInfo(alias="Wikidata_URL", default=None)
 
 
-class Object(BaseModel):
+class ArtObject(BaseModel):
     accession_number: Optional[str] = FieldInfo(alias="accessionNumber", default=None)
 
     accession_year: Optional[str] = FieldInfo(alias="accessionYear", default=None)
