@@ -57,7 +57,7 @@ class TestMetObjects:
     @parametrize
     def test_method_list_with_all_params(self, client: MetMuseum) -> None:
         met_object = client.met_objects.list(
-            department_ids=[0, 0, 0],
+            department_ids=[0],
             metadata_date=parse_date("2019-12-27"),
         )
         assert_matches_type(ArtObjects, met_object, path=["response"])
@@ -125,7 +125,7 @@ class TestAsyncMetObjects:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncMetMuseum) -> None:
         met_object = await async_client.met_objects.list(
-            department_ids=[0, 0, 0],
+            department_ids=[0],
             metadata_date=parse_date("2019-12-27"),
         )
         assert_matches_type(ArtObjects, met_object, path=["response"])
