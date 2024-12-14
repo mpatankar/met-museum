@@ -8,7 +8,7 @@ from typing_extensions import Self, override
 
 import httpx
 
-from . import _exceptions
+from . import resources, _exceptions
 from ._qs import Querystring
 from .types import client_search_params
 from ._types import (
@@ -36,7 +36,6 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import met_objects, met_departments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -52,6 +51,7 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
+    "resources",
     "MetMuseum",
     "AsyncMetMuseum",
     "Client",
@@ -60,8 +60,8 @@ __all__ = [
 
 
 class MetMuseum(SyncAPIClient):
-    met_objects: met_objects.MetObjectsResource
-    met_departments: met_departments.MetDepartmentsResource
+    met_objects: resources.MetObjectsResource
+    met_departments: resources.MetDepartmentsResource
     with_raw_response: MetMuseumWithRawResponse
     with_streaming_response: MetMuseumWithStreamedResponse
 
@@ -106,8 +106,8 @@ class MetMuseum(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.met_objects = met_objects.MetObjectsResource(self)
-        self.met_departments = met_departments.MetDepartmentsResource(self)
+        self.met_objects = resources.MetObjectsResource(self)
+        self.met_departments = resources.MetDepartmentsResource(self)
         self.with_raw_response = MetMuseumWithRawResponse(self)
         self.with_streaming_response = MetMuseumWithStreamedResponse(self)
 
@@ -307,8 +307,8 @@ class MetMuseum(SyncAPIClient):
 
 
 class AsyncMetMuseum(AsyncAPIClient):
-    met_objects: met_objects.AsyncMetObjectsResource
-    met_departments: met_departments.AsyncMetDepartmentsResource
+    met_objects: resources.AsyncMetObjectsResource
+    met_departments: resources.AsyncMetDepartmentsResource
     with_raw_response: AsyncMetMuseumWithRawResponse
     with_streaming_response: AsyncMetMuseumWithStreamedResponse
 
@@ -353,8 +353,8 @@ class AsyncMetMuseum(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.met_objects = met_objects.AsyncMetObjectsResource(self)
-        self.met_departments = met_departments.AsyncMetDepartmentsResource(self)
+        self.met_objects = resources.AsyncMetObjectsResource(self)
+        self.met_departments = resources.AsyncMetDepartmentsResource(self)
         self.with_raw_response = AsyncMetMuseumWithRawResponse(self)
         self.with_streaming_response = AsyncMetMuseumWithStreamedResponse(self)
 
@@ -555,8 +555,8 @@ class AsyncMetMuseum(AsyncAPIClient):
 
 class MetMuseumWithRawResponse:
     def __init__(self, client: MetMuseum) -> None:
-        self.met_objects = met_objects.MetObjectsResourceWithRawResponse(client.met_objects)
-        self.met_departments = met_departments.MetDepartmentsResourceWithRawResponse(client.met_departments)
+        self.met_objects = resources.MetObjectsResourceWithRawResponse(client.met_objects)
+        self.met_departments = resources.MetDepartmentsResourceWithRawResponse(client.met_departments)
 
         self.search = to_raw_response_wrapper(
             client.search,
@@ -565,8 +565,8 @@ class MetMuseumWithRawResponse:
 
 class AsyncMetMuseumWithRawResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.met_objects = met_objects.AsyncMetObjectsResourceWithRawResponse(client.met_objects)
-        self.met_departments = met_departments.AsyncMetDepartmentsResourceWithRawResponse(client.met_departments)
+        self.met_objects = resources.AsyncMetObjectsResourceWithRawResponse(client.met_objects)
+        self.met_departments = resources.AsyncMetDepartmentsResourceWithRawResponse(client.met_departments)
 
         self.search = async_to_raw_response_wrapper(
             client.search,
@@ -575,8 +575,8 @@ class AsyncMetMuseumWithRawResponse:
 
 class MetMuseumWithStreamedResponse:
     def __init__(self, client: MetMuseum) -> None:
-        self.met_objects = met_objects.MetObjectsResourceWithStreamingResponse(client.met_objects)
-        self.met_departments = met_departments.MetDepartmentsResourceWithStreamingResponse(client.met_departments)
+        self.met_objects = resources.MetObjectsResourceWithStreamingResponse(client.met_objects)
+        self.met_departments = resources.MetDepartmentsResourceWithStreamingResponse(client.met_departments)
 
         self.search = to_streamed_response_wrapper(
             client.search,
@@ -585,8 +585,8 @@ class MetMuseumWithStreamedResponse:
 
 class AsyncMetMuseumWithStreamedResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.met_objects = met_objects.AsyncMetObjectsResourceWithStreamingResponse(client.met_objects)
-        self.met_departments = met_departments.AsyncMetDepartmentsResourceWithStreamingResponse(client.met_departments)
+        self.met_objects = resources.AsyncMetObjectsResourceWithStreamingResponse(client.met_objects)
+        self.met_departments = resources.AsyncMetDepartmentsResourceWithStreamingResponse(client.met_departments)
 
         self.search = async_to_streamed_response_wrapper(
             client.search,
