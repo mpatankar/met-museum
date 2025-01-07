@@ -31,7 +31,7 @@ from met_museum import MetMuseum
 
 client = MetMuseum()
 
-works = client.search(
+works = client.collections.search(
     q="sunflower",
     is_highlight=True,
 )
@@ -50,7 +50,7 @@ client = AsyncMetMuseum()
 
 
 async def main() -> None:
-    works = await client.search(
+    works = await client.collections.search(
         q="sunflower",
         is_highlight=True,
     )

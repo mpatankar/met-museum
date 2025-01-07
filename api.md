@@ -1,9 +1,3 @@
-# MetMuseum
-
-Methods:
-
-- <code title="get /search">client.<a href="./src/met_museum/_client.py">search</a>(\*\*<a href="src/met_museum/types/client_search_params.py">params</a>) -> <a href="./src/met_museum/types/works.py">Works</a></code>
-
 # Collections
 
 Types:

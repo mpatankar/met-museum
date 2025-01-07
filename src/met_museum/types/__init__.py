@@ -5,6 +5,5 @@ from __future__ import annotations
 from .work import Work as Work
 from .works import Works as Works
 from .departments import Departments as Departments
-from .client_search_params import ClientSearchParams as ClientSearchParams
 from .collection_list_params import CollectionListParams as CollectionListParams
 from .collection_search_params import CollectionSearchParams as CollectionSearchParams
