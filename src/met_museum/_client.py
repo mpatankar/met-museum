@@ -10,13 +10,9 @@ import httpx
 
 from . import _exceptions
 from ._qs import Querystring
-from .types import client_search_params
 from ._types import (
     NOT_GIVEN,
-    Body,
     Omit,
-    Query,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -25,26 +21,16 @@ from ._types import (
 )
 from ._utils import (
     is_given,
-    maybe_transform,
     get_async_library,
-    async_maybe_transform,
 )
 from ._version import __version__
-from ._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
 from .resources import collections, departments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
-from .types.works import Works
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
-    make_request_options,
 )
 
 __all__ = [
@@ -173,104 +159,6 @@ class MetMuseum(SyncAPIClient):
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
-
-    def search(
-        self,
-        *,
-        q: str,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_highlight: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
-        title: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Works:
-        """
-        returns a listing of all Object IDs for objects that contain the search query
-        within the object’s data
-
-        Args:
-          q: Returns a listing of all Object IDs for objects that contain the search query
-              within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self.get(
-            "/search",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_highlight": is_highlight,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    client_search_params.ClientSearchParams,
-                ),
-            ),
-            cast_to=Works,
-        )
 
     @override
     def _make_status_error(
@@ -421,104 +309,6 @@ class AsyncMetMuseum(AsyncAPIClient):
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
-    async def search(
-        self,
-        *,
-        q: str,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_highlight: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
-        title: bool | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Works:
-        """
-        returns a listing of all Object IDs for objects that contain the search query
-        within the object’s data
-
-        Args:
-          q: Returns a listing of all Object IDs for objects that contain the search query
-              within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self.get(
-            "/search",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_highlight": is_highlight,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    client_search_params.ClientSearchParams,
-                ),
-            ),
-            cast_to=Works,
-        )
-
     @override
     def _make_status_error(
         self,
@@ -558,19 +348,11 @@ class MetMuseumWithRawResponse:
         self.collections = collections.CollectionsResourceWithRawResponse(client.collections)
         self.departments = departments.DepartmentsResourceWithRawResponse(client.departments)
 
-        self.search = to_raw_response_wrapper(
-            client.search,
-        )
-
 
 class AsyncMetMuseumWithRawResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithRawResponse(client.collections)
         self.departments = departments.AsyncDepartmentsResourceWithRawResponse(client.departments)
-
-        self.search = async_to_raw_response_wrapper(
-            client.search,
-        )
 
 
 class MetMuseumWithStreamedResponse:
@@ -578,19 +360,11 @@ class MetMuseumWithStreamedResponse:
         self.collections = collections.CollectionsResourceWithStreamingResponse(client.collections)
         self.departments = departments.DepartmentsResourceWithStreamingResponse(client.departments)
 
-        self.search = to_streamed_response_wrapper(
-            client.search,
-        )
-
 
 class AsyncMetMuseumWithStreamedResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithStreamingResponse(client.collections)
         self.departments = departments.AsyncDepartmentsResourceWithStreamingResponse(client.departments)
-
-        self.search = async_to_streamed_response_wrapper(
-            client.search,
-        )
 
 
 Client = MetMuseum
