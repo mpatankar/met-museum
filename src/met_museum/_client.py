@@ -24,7 +24,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import collections, departments
+from .resources import collections, art_departments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -47,7 +47,7 @@ __all__ = [
 
 class MetMuseum(SyncAPIClient):
     collections: collections.CollectionsResource
-    departments: departments.DepartmentsResource
+    art_departments: art_departments.ArtDepartmentsResource
     with_raw_response: MetMuseumWithRawResponse
     with_streaming_response: MetMuseumWithStreamedResponse
 
@@ -93,7 +93,7 @@ class MetMuseum(SyncAPIClient):
         )
 
         self.collections = collections.CollectionsResource(self)
-        self.departments = departments.DepartmentsResource(self)
+        self.art_departments = art_departments.ArtDepartmentsResource(self)
         self.with_raw_response = MetMuseumWithRawResponse(self)
         self.with_streaming_response = MetMuseumWithStreamedResponse(self)
 
@@ -196,7 +196,7 @@ class MetMuseum(SyncAPIClient):
 
 class AsyncMetMuseum(AsyncAPIClient):
     collections: collections.AsyncCollectionsResource
-    departments: departments.AsyncDepartmentsResource
+    art_departments: art_departments.AsyncArtDepartmentsResource
     with_raw_response: AsyncMetMuseumWithRawResponse
     with_streaming_response: AsyncMetMuseumWithStreamedResponse
 
@@ -242,7 +242,7 @@ class AsyncMetMuseum(AsyncAPIClient):
         )
 
         self.collections = collections.AsyncCollectionsResource(self)
-        self.departments = departments.AsyncDepartmentsResource(self)
+        self.art_departments = art_departments.AsyncArtDepartmentsResource(self)
         self.with_raw_response = AsyncMetMuseumWithRawResponse(self)
         self.with_streaming_response = AsyncMetMuseumWithStreamedResponse(self)
 
@@ -346,25 +346,25 @@ class AsyncMetMuseum(AsyncAPIClient):
 class MetMuseumWithRawResponse:
     def __init__(self, client: MetMuseum) -> None:
         self.collections = collections.CollectionsResourceWithRawResponse(client.collections)
-        self.departments = departments.DepartmentsResourceWithRawResponse(client.departments)
+        self.art_departments = art_departments.ArtDepartmentsResourceWithRawResponse(client.art_departments)
 
 
 class AsyncMetMuseumWithRawResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithRawResponse(client.collections)
-        self.departments = departments.AsyncDepartmentsResourceWithRawResponse(client.departments)
+        self.art_departments = art_departments.AsyncArtDepartmentsResourceWithRawResponse(client.art_departments)
 
 
 class MetMuseumWithStreamedResponse:
     def __init__(self, client: MetMuseum) -> None:
         self.collections = collections.CollectionsResourceWithStreamingResponse(client.collections)
-        self.departments = departments.DepartmentsResourceWithStreamingResponse(client.departments)
+        self.art_departments = art_departments.ArtDepartmentsResourceWithStreamingResponse(client.art_departments)
 
 
 class AsyncMetMuseumWithStreamedResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithStreamingResponse(client.collections)
-        self.departments = departments.AsyncDepartmentsResourceWithStreamingResponse(client.departments)
+        self.art_departments = art_departments.AsyncArtDepartmentsResourceWithStreamingResponse(client.art_departments)
 
 
 Client = MetMuseum
