@@ -8,13 +8,13 @@ from .collections import (
     CollectionsResourceWithStreamingResponse,
     AsyncCollectionsResourceWithStreamingResponse,
 )
-from .departments import (
-    DepartmentsResource,
-    AsyncDepartmentsResource,
-    DepartmentsResourceWithRawResponse,
-    AsyncDepartmentsResourceWithRawResponse,
-    DepartmentsResourceWithStreamingResponse,
-    AsyncDepartmentsResourceWithStreamingResponse,
+from .art_departments import (
+    ArtDepartmentsResource,
+    AsyncArtDepartmentsResource,
+    ArtDepartmentsResourceWithRawResponse,
+    AsyncArtDepartmentsResourceWithRawResponse,
+    ArtDepartmentsResourceWithStreamingResponse,
+    AsyncArtDepartmentsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -24,10 +24,10 @@ __all__ = [
     "AsyncCollectionsResourceWithRawResponse",
     "CollectionsResourceWithStreamingResponse",
     "AsyncCollectionsResourceWithStreamingResponse",
-    "DepartmentsResource",
-    "AsyncDepartmentsResource",
-    "DepartmentsResourceWithRawResponse",
-    "AsyncDepartmentsResourceWithRawResponse",
-    "DepartmentsResourceWithStreamingResponse",
-    "AsyncDepartmentsResourceWithStreamingResponse",
+    "ArtDepartmentsResource",
+    "AsyncArtDepartmentsResource",
+    "ArtDepartmentsResourceWithRawResponse",
+    "AsyncArtDepartmentsResourceWithRawResponse",
+    "ArtDepartmentsResourceWithStreamingResponse",
+    "AsyncArtDepartmentsResourceWithStreamingResponse",
 ]
