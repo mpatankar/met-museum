@@ -6,6 +6,4 @@ from .work import Work as Work
 from .works import Works as Works
 from .departments import Departments as Departments
 from .collection_list_params import CollectionListParams as CollectionListParams
-from .collection_search_and_retrieve_params import (
-    CollectionSearchAndRetrieveParams as CollectionSearchAndRetrieveParams,
-)
+from .collection_search_params import CollectionSearchParams as CollectionSearchParams

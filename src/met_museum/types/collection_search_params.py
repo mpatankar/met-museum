@@ -6,11 +6,11 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["CollectionSearchAndRetrieveParams"]
+__all__ = ["CollectionSearchParams"]
 
 
-class CollectionSearchAndRetrieveParams(TypedDict, total=False):
-    highlightor_not: Required[Annotated[bool, PropertyInfo(alias="HighlightorNot")]]
+class CollectionSearchParams(TypedDict, total=False):
+    is_highlight: Required[Annotated[bool, PropertyInfo(alias="isHighlight")]]
     """Returns objects that match the query and are designated as highlights.
 
     Highlights are selected works of art from The Met Museum’s permanent collection

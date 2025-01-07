@@ -7,7 +7,7 @@ from datetime import date
 
 import httpx
 
-from ..types import collection_list_params, collection_search_and_retrieve_params
+from ..types import collection_list_params, collection_search_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -127,10 +127,10 @@ class CollectionsResource(SyncAPIResource):
             cast_to=Works,
         )
 
-    def search_and_retrieve(
+    def search(
         self,
         *,
-        highlightor_not: bool,
+        is_highlight: bool,
         q: str,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
@@ -154,7 +154,7 @@ class CollectionsResource(SyncAPIResource):
         within the object’s data
 
         Args:
-          highlightor_not: Returns objects that match the query and are designated as highlights.
+          is_highlight: Returns objects that match the query and are designated as highlights.
               Highlights are selected works of art from The Met Museum’s permanent collection
               representing different cultures and time periods.
 
@@ -206,7 +206,7 @@ class CollectionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "highlightor_not": highlightor_not,
+                        "is_highlight": is_highlight,
                         "q": q,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
@@ -219,7 +219,7 @@ class CollectionsResource(SyncAPIResource):
                         "tags": tags,
                         "title": title,
                     },
-                    collection_search_and_retrieve_params.CollectionSearchAndRetrieveParams,
+                    collection_search_params.CollectionSearchParams,
                 ),
             ),
             cast_to=Works,
@@ -325,10 +325,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Works,
         )
 
-    async def search_and_retrieve(
+    async def search(
         self,
         *,
-        highlightor_not: bool,
+        is_highlight: bool,
         q: str,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
@@ -352,7 +352,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         within the object’s data
 
         Args:
-          highlightor_not: Returns objects that match the query and are designated as highlights.
+          is_highlight: Returns objects that match the query and are designated as highlights.
               Highlights are selected works of art from The Met Museum’s permanent collection
               representing different cultures and time periods.
 
@@ -404,7 +404,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "highlightor_not": highlightor_not,
+                        "is_highlight": is_highlight,
                         "q": q,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
@@ -417,7 +417,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                         "tags": tags,
                         "title": title,
                     },
-                    collection_search_and_retrieve_params.CollectionSearchAndRetrieveParams,
+                    collection_search_params.CollectionSearchParams,
                 ),
             ),
             cast_to=Works,
@@ -434,8 +434,8 @@ class CollectionsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             collections.list,
         )
-        self.search_and_retrieve = to_raw_response_wrapper(
-            collections.search_and_retrieve,
+        self.search = to_raw_response_wrapper(
+            collections.search,
         )
 
 
@@ -449,8 +449,8 @@ class AsyncCollectionsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             collections.list,
         )
-        self.search_and_retrieve = async_to_raw_response_wrapper(
-            collections.search_and_retrieve,
+        self.search = async_to_raw_response_wrapper(
+            collections.search,
         )
 
 
@@ -464,8 +464,8 @@ class CollectionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             collections.list,
         )
-        self.search_and_retrieve = to_streamed_response_wrapper(
-            collections.search_and_retrieve,
+        self.search = to_streamed_response_wrapper(
+            collections.search,
         )
 
 
@@ -479,6 +479,6 @@ class AsyncCollectionsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             collections.list,
         )
-        self.search_and_retrieve = async_to_streamed_response_wrapper(
-            collections.search_and_retrieve,
+        self.search = async_to_streamed_response_wrapper(
+            collections.search,
         )
