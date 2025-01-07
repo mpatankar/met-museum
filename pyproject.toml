@@ -5,7 +5,7 @@ description = "The official Python library for the met-museum API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Met Museum", email = "dev-feedback@met-museum.com" },
+{ name = "Met Museum", email = "miheer@stainlessapi.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

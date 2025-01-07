@@ -20,7 +20,7 @@ or products provided by Met Museum please follow the respective company's securi
 
 ### Met Museum Terms and Policies
 
-Please contact dev-feedback@met-museum.com for any questions or concerns regarding security of our services.
+Please contact miheer@stainlessapi.com for any questions or concerns regarding security of our services.
 
 ---
 
