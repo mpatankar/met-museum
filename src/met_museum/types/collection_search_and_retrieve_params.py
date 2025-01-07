@@ -6,10 +6,17 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["CollectionSearchParams"]
+__all__ = ["CollectionSearchAndRetrieveParams"]
 
 
-class CollectionSearchParams(TypedDict, total=False):
+class CollectionSearchAndRetrieveParams(TypedDict, total=False):
+    highlightor_not: Required[Annotated[bool, PropertyInfo(alias="HighlightorNot")]]
+    """Returns objects that match the query and are designated as highlights.
+
+    Highlights are selected works of art from The Met Museum’s permanent collection
+    representing different cultures and time periods.
+    """
+
     q: Required[str]
     """
     Returns a listing of all Object IDs for objects that contain the search query
@@ -45,13 +52,6 @@ class CollectionSearchParams(TypedDict, total=False):
 
     has_images: Annotated[bool, PropertyInfo(alias="hasImages")]
     """Returns objects that match the query and have images."""
-
-    is_highlight: Annotated[bool, PropertyInfo(alias="isHighlight")]
-    """Returns objects that match the query and are designated as highlights.
-
-    Highlights are selected works of art from The Met Museum’s permanent collection
-    representing different cultures and time periods.
-    """
 
     is_on_view: Annotated[bool, PropertyInfo(alias="isOnView")]
     """Returns objects that match the query and are on view in the museum."""
