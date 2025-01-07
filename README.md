@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.met-museum.com](https://docs.met-museum.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [metmuseum.github.io](https://metmuseum.github.io/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
