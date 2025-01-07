@@ -6,10 +6,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["ArtObjects"]
+__all__ = ["Works"]
 
 
-class ArtObjects(BaseModel):
+class Works(BaseModel):
     object_ids: Optional[List[float]] = FieldInfo(alias="objectIDs", default=None)
 
     total: Optional[float] = None

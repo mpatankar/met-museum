@@ -36,16 +36,16 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import met_objects, met_departments
+from .resources import collections, departments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
+from .types.works import Works
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
     AsyncAPIClient,
     make_request_options,
 )
-from .types.art_objects import ArtObjects
 
 __all__ = [
     "Timeout",
@@ -60,8 +60,8 @@ __all__ = [
 
 
 class MetMuseum(SyncAPIClient):
-    met_objects: met_objects.MetObjectsResource
-    met_departments: met_departments.MetDepartmentsResource
+    collections: collections.CollectionsResource
+    departments: departments.DepartmentsResource
     with_raw_response: MetMuseumWithRawResponse
     with_streaming_response: MetMuseumWithStreamedResponse
 
@@ -106,8 +106,8 @@ class MetMuseum(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.met_objects = met_objects.MetObjectsResource(self)
-        self.met_departments = met_departments.MetDepartmentsResource(self)
+        self.collections = collections.CollectionsResource(self)
+        self.departments = departments.DepartmentsResource(self)
         self.with_raw_response = MetMuseumWithRawResponse(self)
         self.with_streaming_response = MetMuseumWithStreamedResponse(self)
 
@@ -195,7 +195,7 @@ class MetMuseum(SyncAPIClient):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ArtObjects:
+    ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
@@ -269,7 +269,7 @@ class MetMuseum(SyncAPIClient):
                     client_search_params.ClientSearchParams,
                 ),
             ),
-            cast_to=ArtObjects,
+            cast_to=Works,
         )
 
     @override
@@ -307,8 +307,8 @@ class MetMuseum(SyncAPIClient):
 
 
 class AsyncMetMuseum(AsyncAPIClient):
-    met_objects: met_objects.AsyncMetObjectsResource
-    met_departments: met_departments.AsyncMetDepartmentsResource
+    collections: collections.AsyncCollectionsResource
+    departments: departments.AsyncDepartmentsResource
     with_raw_response: AsyncMetMuseumWithRawResponse
     with_streaming_response: AsyncMetMuseumWithStreamedResponse
 
@@ -353,8 +353,8 @@ class AsyncMetMuseum(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.met_objects = met_objects.AsyncMetObjectsResource(self)
-        self.met_departments = met_departments.AsyncMetDepartmentsResource(self)
+        self.collections = collections.AsyncCollectionsResource(self)
+        self.departments = departments.AsyncDepartmentsResource(self)
         self.with_raw_response = AsyncMetMuseumWithRawResponse(self)
         self.with_streaming_response = AsyncMetMuseumWithStreamedResponse(self)
 
@@ -442,7 +442,7 @@ class AsyncMetMuseum(AsyncAPIClient):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ArtObjects:
+    ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
@@ -516,7 +516,7 @@ class AsyncMetMuseum(AsyncAPIClient):
                     client_search_params.ClientSearchParams,
                 ),
             ),
-            cast_to=ArtObjects,
+            cast_to=Works,
         )
 
     @override
@@ -555,8 +555,8 @@ class AsyncMetMuseum(AsyncAPIClient):
 
 class MetMuseumWithRawResponse:
     def __init__(self, client: MetMuseum) -> None:
-        self.met_objects = met_objects.MetObjectsResourceWithRawResponse(client.met_objects)
-        self.met_departments = met_departments.MetDepartmentsResourceWithRawResponse(client.met_departments)
+        self.collections = collections.CollectionsResourceWithRawResponse(client.collections)
+        self.departments = departments.DepartmentsResourceWithRawResponse(client.departments)
 
         self.search = to_raw_response_wrapper(
             client.search,
@@ -565,8 +565,8 @@ class MetMuseumWithRawResponse:
 
 class AsyncMetMuseumWithRawResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.met_objects = met_objects.AsyncMetObjectsResourceWithRawResponse(client.met_objects)
-        self.met_departments = met_departments.AsyncMetDepartmentsResourceWithRawResponse(client.met_departments)
+        self.collections = collections.AsyncCollectionsResourceWithRawResponse(client.collections)
+        self.departments = departments.AsyncDepartmentsResourceWithRawResponse(client.departments)
 
         self.search = async_to_raw_response_wrapper(
             client.search,
@@ -575,8 +575,8 @@ class AsyncMetMuseumWithRawResponse:
 
 class MetMuseumWithStreamedResponse:
     def __init__(self, client: MetMuseum) -> None:
-        self.met_objects = met_objects.MetObjectsResourceWithStreamingResponse(client.met_objects)
-        self.met_departments = met_departments.MetDepartmentsResourceWithStreamingResponse(client.met_departments)
+        self.collections = collections.CollectionsResourceWithStreamingResponse(client.collections)
+        self.departments = departments.DepartmentsResourceWithStreamingResponse(client.departments)
 
         self.search = to_streamed_response_wrapper(
             client.search,
@@ -585,8 +585,8 @@ class MetMuseumWithStreamedResponse:
 
 class AsyncMetMuseumWithStreamedResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.met_objects = met_objects.AsyncMetObjectsResourceWithStreamingResponse(client.met_objects)
-        self.met_departments = met_departments.AsyncMetDepartmentsResourceWithStreamingResponse(client.met_departments)
+        self.collections = collections.AsyncCollectionsResourceWithStreamingResponse(client.collections)
+        self.departments = departments.AsyncDepartmentsResourceWithStreamingResponse(client.departments)
 
         self.search = async_to_streamed_response_wrapper(
             client.search,
