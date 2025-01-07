@@ -83,15 +83,17 @@ class TestCollections:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_search(self, client: MetMuseum) -> None:
-        collection = client.collections.search(
+    def test_method_search_and_retrieve(self, client: MetMuseum) -> None:
+        collection = client.collections.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    def test_method_search_with_all_params(self, client: MetMuseum) -> None:
-        collection = client.collections.search(
+    def test_method_search_and_retrieve_with_all_params(self, client: MetMuseum) -> None:
+        collection = client.collections.search_and_retrieve(
+            highlightor_not=True,
             q="q",
             artist_or_culture=True,
             date_begin=0,
@@ -99,7 +101,6 @@ class TestCollections:
             department_id=0,
             geo_location="geoLocation",
             has_images=True,
-            is_highlight=True,
             is_on_view=True,
             medium="medium",
             tags=True,
@@ -108,8 +109,9 @@ class TestCollections:
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    def test_raw_response_search(self, client: MetMuseum) -> None:
-        response = client.collections.with_raw_response.search(
+    def test_raw_response_search_and_retrieve(self, client: MetMuseum) -> None:
+        response = client.collections.with_raw_response.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         )
 
@@ -119,8 +121,9 @@ class TestCollections:
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    def test_streaming_response_search(self, client: MetMuseum) -> None:
-        with client.collections.with_streaming_response.search(
+    def test_streaming_response_search_and_retrieve(self, client: MetMuseum) -> None:
+        with client.collections.with_streaming_response.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         ) as response:
             assert not response.is_closed
@@ -200,15 +203,17 @@ class TestAsyncCollections:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_search(self, async_client: AsyncMetMuseum) -> None:
-        collection = await async_client.collections.search(
+    async def test_method_search_and_retrieve(self, async_client: AsyncMetMuseum) -> None:
+        collection = await async_client.collections.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    async def test_method_search_with_all_params(self, async_client: AsyncMetMuseum) -> None:
-        collection = await async_client.collections.search(
+    async def test_method_search_and_retrieve_with_all_params(self, async_client: AsyncMetMuseum) -> None:
+        collection = await async_client.collections.search_and_retrieve(
+            highlightor_not=True,
             q="q",
             artist_or_culture=True,
             date_begin=0,
@@ -216,7 +221,6 @@ class TestAsyncCollections:
             department_id=0,
             geo_location="geoLocation",
             has_images=True,
-            is_highlight=True,
             is_on_view=True,
             medium="medium",
             tags=True,
@@ -225,8 +229,9 @@ class TestAsyncCollections:
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    async def test_raw_response_search(self, async_client: AsyncMetMuseum) -> None:
-        response = await async_client.collections.with_raw_response.search(
+    async def test_raw_response_search_and_retrieve(self, async_client: AsyncMetMuseum) -> None:
+        response = await async_client.collections.with_raw_response.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         )
 
@@ -236,8 +241,9 @@ class TestAsyncCollections:
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    async def test_streaming_response_search(self, async_client: AsyncMetMuseum) -> None:
-        async with async_client.collections.with_streaming_response.search(
+    async def test_streaming_response_search_and_retrieve(self, async_client: AsyncMetMuseum) -> None:
+        async with async_client.collections.with_streaming_response.search_and_retrieve(
+            highlightor_not=True,
             q="q",
         ) as response:
             assert not response.is_closed

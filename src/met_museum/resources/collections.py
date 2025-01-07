@@ -7,7 +7,7 @@ from datetime import date
 
 import httpx
 
-from ..types import collection_list_params, collection_search_params
+from ..types import collection_list_params, collection_search_and_retrieve_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -127,9 +127,10 @@ class CollectionsResource(SyncAPIResource):
             cast_to=Works,
         )
 
-    def search(
+    def search_and_retrieve(
         self,
         *,
+        highlightor_not: bool,
         q: str,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
@@ -137,7 +138,6 @@ class CollectionsResource(SyncAPIResource):
         department_id: int | NotGiven = NOT_GIVEN,
         geo_location: str | NotGiven = NOT_GIVEN,
         has_images: bool | NotGiven = NOT_GIVEN,
-        is_highlight: bool | NotGiven = NOT_GIVEN,
         is_on_view: bool | NotGiven = NOT_GIVEN,
         medium: str | NotGiven = NOT_GIVEN,
         tags: bool | NotGiven = NOT_GIVEN,
@@ -154,6 +154,10 @@ class CollectionsResource(SyncAPIResource):
         within the object’s data
 
         Args:
+          highlightor_not: Returns objects that match the query and are designated as highlights.
+              Highlights are selected works of art from The Met Museum’s permanent collection
+              representing different cultures and time periods.
+
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
 
@@ -172,10 +176,6 @@ class CollectionsResource(SyncAPIResource):
               Examples include "Europe", "France", "Paris", "China", "New York", etc.
 
           has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
 
           is_on_view: Returns objects that match the query and are on view in the museum.
 
@@ -206,6 +206,7 @@ class CollectionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "highlightor_not": highlightor_not,
                         "q": q,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
@@ -213,13 +214,12 @@ class CollectionsResource(SyncAPIResource):
                         "department_id": department_id,
                         "geo_location": geo_location,
                         "has_images": has_images,
-                        "is_highlight": is_highlight,
                         "is_on_view": is_on_view,
                         "medium": medium,
                         "tags": tags,
                         "title": title,
                     },
-                    collection_search_params.CollectionSearchParams,
+                    collection_search_and_retrieve_params.CollectionSearchAndRetrieveParams,
                 ),
             ),
             cast_to=Works,
@@ -325,9 +325,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Works,
         )
 
-    async def search(
+    async def search_and_retrieve(
         self,
         *,
+        highlightor_not: bool,
         q: str,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
@@ -335,7 +336,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
         department_id: int | NotGiven = NOT_GIVEN,
         geo_location: str | NotGiven = NOT_GIVEN,
         has_images: bool | NotGiven = NOT_GIVEN,
-        is_highlight: bool | NotGiven = NOT_GIVEN,
         is_on_view: bool | NotGiven = NOT_GIVEN,
         medium: str | NotGiven = NOT_GIVEN,
         tags: bool | NotGiven = NOT_GIVEN,
@@ -352,6 +352,10 @@ class AsyncCollectionsResource(AsyncAPIResource):
         within the object’s data
 
         Args:
+          highlightor_not: Returns objects that match the query and are designated as highlights.
+              Highlights are selected works of art from The Met Museum’s permanent collection
+              representing different cultures and time periods.
+
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
 
@@ -370,10 +374,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
               Examples include "Europe", "France", "Paris", "China", "New York", etc.
 
           has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
 
           is_on_view: Returns objects that match the query and are on view in the museum.
 
@@ -404,6 +404,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "highlightor_not": highlightor_not,
                         "q": q,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
@@ -411,13 +412,12 @@ class AsyncCollectionsResource(AsyncAPIResource):
                         "department_id": department_id,
                         "geo_location": geo_location,
                         "has_images": has_images,
-                        "is_highlight": is_highlight,
                         "is_on_view": is_on_view,
                         "medium": medium,
                         "tags": tags,
                         "title": title,
                     },
-                    collection_search_params.CollectionSearchParams,
+                    collection_search_and_retrieve_params.CollectionSearchAndRetrieveParams,
                 ),
             ),
             cast_to=Works,
@@ -434,8 +434,8 @@ class CollectionsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             collections.list,
         )
-        self.search = to_raw_response_wrapper(
-            collections.search,
+        self.search_and_retrieve = to_raw_response_wrapper(
+            collections.search_and_retrieve,
         )
 
 
@@ -449,8 +449,8 @@ class AsyncCollectionsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             collections.list,
         )
-        self.search = async_to_raw_response_wrapper(
-            collections.search,
+        self.search_and_retrieve = async_to_raw_response_wrapper(
+            collections.search_and_retrieve,
         )
 
 
@@ -464,8 +464,8 @@ class CollectionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             collections.list,
         )
-        self.search = to_streamed_response_wrapper(
-            collections.search,
+        self.search_and_retrieve = to_streamed_response_wrapper(
+            collections.search_and_retrieve,
         )
 
 
@@ -479,6 +479,6 @@ class AsyncCollectionsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             collections.list,
         )
-        self.search = async_to_streamed_response_wrapper(
-            collections.search,
+        self.search_and_retrieve = async_to_streamed_response_wrapper(
+            collections.search_and_retrieve,
         )
