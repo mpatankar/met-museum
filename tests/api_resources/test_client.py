@@ -9,7 +9,7 @@ import pytest
 
 from met_museum import MetMuseum, AsyncMetMuseum
 from tests.utils import assert_matches_type
-from met_museum.types import ArtObjects
+from met_museum.types import Works
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +22,7 @@ class TestClient:
         client_ = client.search(
             q="q",
         )
-        assert_matches_type(ArtObjects, client_, path=["response"])
+        assert_matches_type(Works, client_, path=["response"])
 
     @parametrize
     def test_method_search_with_all_params(self, client: MetMuseum) -> None:
@@ -40,7 +40,7 @@ class TestClient:
             tags=True,
             title=True,
         )
-        assert_matches_type(ArtObjects, client_, path=["response"])
+        assert_matches_type(Works, client_, path=["response"])
 
     @parametrize
     def test_raw_response_search(self, client: MetMuseum) -> None:
@@ -51,7 +51,7 @@ class TestClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client_ = response.parse()
-        assert_matches_type(ArtObjects, client_, path=["response"])
+        assert_matches_type(Works, client_, path=["response"])
 
     @parametrize
     def test_streaming_response_search(self, client: MetMuseum) -> None:
@@ -62,7 +62,7 @@ class TestClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client_ = response.parse()
-            assert_matches_type(ArtObjects, client_, path=["response"])
+            assert_matches_type(Works, client_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -75,7 +75,7 @@ class TestAsyncClient:
         client = await async_client.search(
             q="q",
         )
-        assert_matches_type(ArtObjects, client, path=["response"])
+        assert_matches_type(Works, client, path=["response"])
 
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncMetMuseum) -> None:
@@ -93,7 +93,7 @@ class TestAsyncClient:
             tags=True,
             title=True,
         )
-        assert_matches_type(ArtObjects, client, path=["response"])
+        assert_matches_type(Works, client, path=["response"])
 
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncMetMuseum) -> None:
@@ -104,7 +104,7 @@ class TestAsyncClient:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         client = await response.parse()
-        assert_matches_type(ArtObjects, client, path=["response"])
+        assert_matches_type(Works, client, path=["response"])
 
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncMetMuseum) -> None:
@@ -115,6 +115,6 @@ class TestAsyncClient:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             client = await response.parse()
-            assert_matches_type(ArtObjects, client, path=["response"])
+            assert_matches_type(Works, client, path=["response"])
 
         assert cast(Any, response.is_closed) is True

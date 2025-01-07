@@ -8,10 +8,10 @@ from typing_extensions import Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["MetObjectListParams"]
+__all__ = ["CollectionListParams"]
 
 
-class MetObjectListParams(TypedDict, total=False):
+class CollectionListParams(TypedDict, total=False):
     department_ids: Annotated[Iterable[int], PropertyInfo(alias="departmentIds")]
     """integers that correspond to department IDs e.g.
 
