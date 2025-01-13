@@ -9,7 +9,11 @@ import pytest
 
 from met_museum import MetMuseum, AsyncMetMuseum
 from tests.utils import assert_matches_type
-from met_museum.types import Work, Works
+from met_museum.types import (
+    Work,
+    Works,
+    CollectionFastAPIResponse,
+)
 from met_museum._utils import parse_date
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -79,6 +83,37 @@ class TestCollections:
 
             collection = response.parse()
             assert_matches_type(Works, collection, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_fast_api(self, client: MetMuseum) -> None:
+        collection = client.collections.fast_api(
+            entry={},
+        )
+        assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
+
+    @parametrize
+    def test_raw_response_fast_api(self, client: MetMuseum) -> None:
+        response = client.collections.with_raw_response.fast_api(
+            entry={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        collection = response.parse()
+        assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
+
+    @parametrize
+    def test_streaming_response_fast_api(self, client: MetMuseum) -> None:
+        with client.collections.with_streaming_response.fast_api(
+            entry={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            collection = response.parse()
+            assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -199,6 +234,37 @@ class TestAsyncCollections:
 
             collection = await response.parse()
             assert_matches_type(Works, collection, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_fast_api(self, async_client: AsyncMetMuseum) -> None:
+        collection = await async_client.collections.fast_api(
+            entry={},
+        )
+        assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
+
+    @parametrize
+    async def test_raw_response_fast_api(self, async_client: AsyncMetMuseum) -> None:
+        response = await async_client.collections.with_raw_response.fast_api(
+            entry={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        collection = await response.parse()
+        assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_fast_api(self, async_client: AsyncMetMuseum) -> None:
+        async with async_client.collections.with_streaming_response.fast_api(
+            entry={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            collection = await response.parse()
+            assert_matches_type(CollectionFastAPIResponse, collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
