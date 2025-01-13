@@ -7,7 +7,7 @@ from datetime import date
 
 import httpx
 
-from ..types import collection_list_params, collection_search_params
+from ..types import collection_list_params, collection_search_params, collection_fast_api_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -24,6 +24,7 @@ from .._response import (
 from ..types.work import Work
 from ..types.works import Works
 from .._base_client import make_request_options
+from ..types.collection_fast_api_response import CollectionFastAPIResponse
 
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
 
@@ -125,6 +126,38 @@ class CollectionsResource(SyncAPIResource):
                 ),
             ),
             cast_to=Works,
+        )
+
+    def fast_api(
+        self,
+        *,
+        entry: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CollectionFastAPIResponse:
+        """
+        Do Thing
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/fastapi",
+            body=maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CollectionFastAPIResponse,
         )
 
     def search(
@@ -325,6 +358,38 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Works,
         )
 
+    async def fast_api(
+        self,
+        *,
+        entry: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CollectionFastAPIResponse:
+        """
+        Do Thing
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/fastapi",
+            body=await async_maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CollectionFastAPIResponse,
+        )
+
     async def search(
         self,
         *,
@@ -434,6 +499,9 @@ class CollectionsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             collections.list,
         )
+        self.fast_api = to_raw_response_wrapper(
+            collections.fast_api,
+        )
         self.search = to_raw_response_wrapper(
             collections.search,
         )
@@ -448,6 +516,9 @@ class AsyncCollectionsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             collections.list,
+        )
+        self.fast_api = async_to_raw_response_wrapper(
+            collections.fast_api,
         )
         self.search = async_to_raw_response_wrapper(
             collections.search,
@@ -464,6 +535,9 @@ class CollectionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             collections.list,
         )
+        self.fast_api = to_streamed_response_wrapper(
+            collections.fast_api,
+        )
         self.search = to_streamed_response_wrapper(
             collections.search,
         )
@@ -478,6 +552,9 @@ class AsyncCollectionsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             collections.list,
+        )
+        self.fast_api = async_to_streamed_response_wrapper(
+            collections.fast_api,
         )
         self.search = async_to_streamed_response_wrapper(
             collections.search,
