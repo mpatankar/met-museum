@@ -75,7 +75,7 @@ class MetMuseum(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous met-museum client instance."""
+        """Construct a new synchronous MetMuseum client instance."""
         if base_url is None:
             base_url = os.environ.get("MET_MUSEUM_BASE_URL")
         if base_url is None:
@@ -224,7 +224,7 @@ class AsyncMetMuseum(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async met-museum client instance."""
+        """Construct a new async AsyncMetMuseum client instance."""
         if base_url is None:
             base_url = os.environ.get("MET_MUSEUM_BASE_URL")
         if base_url is None:
