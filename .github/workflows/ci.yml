@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Calculate fetch-depth
         run: |
-        echo "FETCH_DEPTH=$(expr ${{ github.event.pull_request.commits }} + 1)" >> $GITHUB_ENV
+          echo "FETCH_DEPTH=$(expr ${{ github.event.pull_request.commits }} + 1)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v4
         with:
