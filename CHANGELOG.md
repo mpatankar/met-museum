@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 (2025-03-14)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/mpatankar/met-museum/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* **client:** add endpoint for listing objects ([#22](https://github.com/mpatankar/met-museum/issues/22)) ([6dea04e](https://github.com/mpatankar/met-museum/commit/6dea04e4f25fc7e174bd8c0e2f35fc6b583dc091))
+
 ## 1.3.0 (2025-03-14)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/mpatankar/met-museum/compare/v1.2.0...v1.3.0)
