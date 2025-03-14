@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 (2025-03-14)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/mpatankar/met-museum/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* Update ci.yml ([195e6ed](https://github.com/mpatankar/met-museum/commit/195e6edf2b6727cae142bc678edf31c5b651ed8c))
+
+
+### Chores
+
+* **internal:** version bump ([#9](https://github.com/mpatankar/met-museum/issues/9)) ([59fd5aa](https://github.com/mpatankar/met-museum/commit/59fd5aa3691d0f2b4c523c051c4a90c7e4719519))
+
 ## 1.0.0 (2025-03-14)
 
 Full Changelog: [v0.1.0-alpha.1...v1.0.0](https://github.com/mpatankar/met-museum/compare/v0.1.0-alpha.1...v1.0.0)
