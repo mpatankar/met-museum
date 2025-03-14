@@ -122,7 +122,6 @@ class TestCollections:
         collection = client.collections.search(
             is_highlight=True,
             q="q",
-            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
@@ -131,7 +130,6 @@ class TestCollections:
         collection = client.collections.search(
             is_highlight=True,
             q="q",
-            title=True,
             artist_or_culture=True,
             date_begin=0,
             date_end=0,
@@ -141,6 +139,7 @@ class TestCollections:
             is_on_view=True,
             medium="medium",
             tags=True,
+            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
@@ -149,7 +148,6 @@ class TestCollections:
         response = client.collections.with_raw_response.search(
             is_highlight=True,
             q="q",
-            title=True,
         )
 
         assert response.is_closed is True
@@ -162,7 +160,6 @@ class TestCollections:
         with client.collections.with_streaming_response.search(
             is_highlight=True,
             q="q",
-            title=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -276,7 +273,6 @@ class TestAsyncCollections:
         collection = await async_client.collections.search(
             is_highlight=True,
             q="q",
-            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
@@ -285,7 +281,6 @@ class TestAsyncCollections:
         collection = await async_client.collections.search(
             is_highlight=True,
             q="q",
-            title=True,
             artist_or_culture=True,
             date_begin=0,
             date_end=0,
@@ -295,6 +290,7 @@ class TestAsyncCollections:
             is_on_view=True,
             medium="medium",
             tags=True,
+            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
@@ -303,7 +299,6 @@ class TestAsyncCollections:
         response = await async_client.collections.with_raw_response.search(
             is_highlight=True,
             q="q",
-            title=True,
         )
 
         assert response.is_closed is True
@@ -316,7 +311,6 @@ class TestAsyncCollections:
         async with async_client.collections.with_streaming_response.search(
             is_highlight=True,
             q="q",
-            title=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

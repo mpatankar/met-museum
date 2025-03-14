@@ -165,7 +165,6 @@ class CollectionsResource(SyncAPIResource):
         *,
         is_highlight: bool,
         q: str,
-        title: bool,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
         date_end: int | NotGiven = NOT_GIVEN,
@@ -175,6 +174,7 @@ class CollectionsResource(SyncAPIResource):
         is_on_view: bool | NotGiven = NOT_GIVEN,
         medium: str | NotGiven = NOT_GIVEN,
         tags: bool | NotGiven = NOT_GIVEN,
+        title: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -193,9 +193,6 @@ class CollectionsResource(SyncAPIResource):
 
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           artist_or_culture: Returns objects that match the query, specifically searching against the artist
               name or culture field for objects.
@@ -222,6 +219,9 @@ class CollectionsResource(SyncAPIResource):
           tags: Returns objects that match the query, specifically searching against the subject
               keyword tags field for objects.
 
+          title: Returns objects that match the query, specifically searching against the title
+              field for objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -241,7 +241,6 @@ class CollectionsResource(SyncAPIResource):
                     {
                         "is_highlight": is_highlight,
                         "q": q,
-                        "title": title,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
                         "date_end": date_end,
@@ -251,6 +250,7 @@ class CollectionsResource(SyncAPIResource):
                         "is_on_view": is_on_view,
                         "medium": medium,
                         "tags": tags,
+                        "title": title,
                     },
                     collection_search_params.CollectionSearchParams,
                 ),
@@ -395,7 +395,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
         *,
         is_highlight: bool,
         q: str,
-        title: bool,
         artist_or_culture: bool | NotGiven = NOT_GIVEN,
         date_begin: int | NotGiven = NOT_GIVEN,
         date_end: int | NotGiven = NOT_GIVEN,
@@ -405,6 +404,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         is_on_view: bool | NotGiven = NOT_GIVEN,
         medium: str | NotGiven = NOT_GIVEN,
         tags: bool | NotGiven = NOT_GIVEN,
+        title: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -423,9 +423,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
 
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           artist_or_culture: Returns objects that match the query, specifically searching against the artist
               name or culture field for objects.
@@ -452,6 +449,9 @@ class AsyncCollectionsResource(AsyncAPIResource):
           tags: Returns objects that match the query, specifically searching against the subject
               keyword tags field for objects.
 
+          title: Returns objects that match the query, specifically searching against the title
+              field for objects.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -471,7 +471,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
                     {
                         "is_highlight": is_highlight,
                         "q": q,
-                        "title": title,
                         "artist_or_culture": artist_or_culture,
                         "date_begin": date_begin,
                         "date_end": date_end,
@@ -481,6 +480,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                         "is_on_view": is_on_view,
                         "medium": medium,
                         "tags": tags,
+                        "title": title,
                     },
                     collection_search_params.CollectionSearchParams,
                 ),
