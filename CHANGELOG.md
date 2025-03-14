@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0 (2025-03-14)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/mpatankar/met-museum/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* **client:** add list endpoint ([#17](https://github.com/mpatankar/met-museum/issues/17)) ([8ddd58f](https://github.com/mpatankar/met-museum/commit/8ddd58f257dd5451e26dda00d9613d2d3dfe6d4d))
+* **client:** make search title optional ([#19](https://github.com/mpatankar/met-museum/issues/19)) ([62c8a1c](https://github.com/mpatankar/met-museum/commit/62c8a1cff2ff7aa5cc37c5741d8d8a656c05a1c1))
+* **client:** make search title required ([#18](https://github.com/mpatankar/met-museum/issues/18)) ([f241b52](https://github.com/mpatankar/met-museum/commit/f241b52d2cb4301852a6c2cd2649dbd262ee7e5a))
+* **client:** remove list endpoint ([#15](https://github.com/mpatankar/met-museum/issues/15)) ([ab5b0b3](https://github.com/mpatankar/met-museum/commit/ab5b0b3551d94a16a14ba8255a464ab1160c3928))
+* **client:** remove list endpoint ([#20](https://github.com/mpatankar/met-museum/issues/20)) ([8b31c7c](https://github.com/mpatankar/met-museum/commit/8b31c7c4c416ff79f615e41f92fba5e84385b470))
+
 ## 1.2.0 (2025-03-14)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/mpatankar/met-museum/compare/v1.1.0...v1.2.0)
