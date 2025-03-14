@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 (2025-03-14)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/mpatankar/met-museum/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **client:** add a list endpoint ([#12](https://github.com/mpatankar/met-museum/issues/12)) ([6e6641f](https://github.com/mpatankar/met-museum/commit/6e6641f4b076d81edef007ca525a3a1dd3dac67a))
+
 ## 1.1.0 (2025-03-14)
 
 Full Changelog: [v1.0.0...v1.1.0](https://github.com/mpatankar/met-museum/compare/v1.0.0...v1.1.0)
