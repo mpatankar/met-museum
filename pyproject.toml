@@ -1,6 +1,6 @@
 [project]
 name = "met_museum"
-version = "0.0.1-alpha.0"
+version = "0.1.0-alpha.1"
 description = "The official Python library for the met-museum API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -34,8 +34,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/met-museum-python"
-Repository = "https://github.com/stainless-sdks/met-museum-python"
+Homepage = "https://github.com/mpatankar/met-museum"
+Repository = "https://github.com/mpatankar/met-museum"
 
 
 [tool.rye]
@@ -121,7 +121,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/stainless-sdks/met-museum-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/mpatankar/met-museum/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
