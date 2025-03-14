@@ -31,10 +31,11 @@ from met_museum import MetMuseum
 
 client = MetMuseum()
 
-work = client.collections.retrieve(
-    150,
+works = client.collections.search(
+    is_highlight=True,
+    q="sunflower",
 )
-print(work.artist_wikidata_url)
+print(works.object_ids)
 ```
 
 ## Async usage
@@ -49,10 +50,11 @@ client = AsyncMetMuseum()
 
 
 async def main() -> None:
-    work = await client.collections.retrieve(
-        150,
+    works = await client.collections.search(
+        is_highlight=True,
+        q="sunflower",
     )
-    print(work.artist_wikidata_url)
+    print(works.object_ids)
 
 
 asyncio.run(main())
@@ -85,9 +87,7 @@ from met_museum import MetMuseum
 client = MetMuseum()
 
 try:
-    client.collections.retrieve(
-        150,
-    )
+    client.collections.list()
 except met_museum.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -130,9 +130,7 @@ client = MetMuseum(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).collections.retrieve(
-    150,
-)
+client.with_options(max_retries=5).collections.list()
 ```
 
 ### Timeouts
@@ -155,9 +153,7 @@ client = MetMuseum(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).collections.retrieve(
-    150,
-)
+client.with_options(timeout=5.0).collections.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -198,13 +194,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from met_museum import MetMuseum
 
 client = MetMuseum()
-response = client.collections.with_raw_response.retrieve(
-    150,
-)
+response = client.collections.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-collection = response.parse()  # get the object that `collections.retrieve()` would have returned
-print(collection.artist_wikidata_url)
+collection = response.parse()  # get the object that `collections.list()` would have returned
+print(collection.object_ids)
 ```
 
 These methods return an [`APIResponse`](https://github.com/mpatankar/met-museum/tree/main/src/met_museum/_response.py) object.
@@ -218,9 +212,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.collections.with_streaming_response.retrieve(
-    150,
-) as response:
+with client.collections.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
