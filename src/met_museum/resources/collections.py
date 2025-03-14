@@ -2,12 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from datetime import date
-
 import httpx
 
-from ..types import collection_list_params, collection_search_params, collection_fast_api_params
+from ..types import collection_search_params, collection_fast_api_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -79,53 +76,6 @@ class CollectionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Work,
-        )
-
-    def list(
-        self,
-        *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Works:
-        """
-        returns a listing of all valid Object IDs available to use
-
-        Args:
-          department_ids: integers that correspond to department IDs e.g. 1 or 3|9|12, delimited with the
-              | character
-
-          metadata_date: Returns any objects with updated data after this date
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/objects",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "department_ids": department_ids,
-                        "metadata_date": metadata_date,
-                    },
-                    collection_list_params.CollectionListParams,
-                ),
-            ),
-            cast_to=Works,
         )
 
     def fast_api(
@@ -311,53 +261,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Work,
         )
 
-    async def list(
-        self,
-        *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Works:
-        """
-        returns a listing of all valid Object IDs available to use
-
-        Args:
-          department_ids: integers that correspond to department IDs e.g. 1 or 3|9|12, delimited with the
-              | character
-
-          metadata_date: Returns any objects with updated data after this date
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/objects",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "department_ids": department_ids,
-                        "metadata_date": metadata_date,
-                    },
-                    collection_list_params.CollectionListParams,
-                ),
-            ),
-            cast_to=Works,
-        )
-
     async def fast_api(
         self,
         *,
@@ -496,9 +399,6 @@ class CollectionsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             collections.retrieve,
         )
-        self.list = to_raw_response_wrapper(
-            collections.list,
-        )
         self.fast_api = to_raw_response_wrapper(
             collections.fast_api,
         )
@@ -513,9 +413,6 @@ class AsyncCollectionsResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             collections.retrieve,
-        )
-        self.list = async_to_raw_response_wrapper(
-            collections.list,
         )
         self.fast_api = async_to_raw_response_wrapper(
             collections.fast_api,
@@ -532,9 +429,6 @@ class CollectionsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             collections.retrieve,
         )
-        self.list = to_streamed_response_wrapper(
-            collections.list,
-        )
         self.fast_api = to_streamed_response_wrapper(
             collections.fast_api,
         )
@@ -549,9 +443,6 @@ class AsyncCollectionsResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             collections.retrieve,
-        )
-        self.list = async_to_streamed_response_wrapper(
-            collections.list,
         )
         self.fast_api = async_to_streamed_response_wrapper(
             collections.fast_api,
