@@ -23,6 +23,12 @@ class CollectionSearchParams(TypedDict, total=False):
     within the object’s data
     """
 
+    title: Required[bool]
+    """
+    Returns objects that match the query, specifically searching against the title
+    field for objects.
+    """
+
     artist_or_culture: Annotated[bool, PropertyInfo(alias="artistOrCulture")]
     """
     Returns objects that match the query, specifically searching against the artist
@@ -67,10 +73,4 @@ class CollectionSearchParams(TypedDict, total=False):
     """
     Returns objects that match the query, specifically searching against the subject
     keyword tags field for objects.
-    """
-
-    title: bool
-    """
-    Returns objects that match the query, specifically searching against the title
-    field for objects.
     """
