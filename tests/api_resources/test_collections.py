@@ -14,7 +14,6 @@ from met_museum.types import (
     Works,
     CollectionFastAPIResponse,
 )
-from met_museum._utils import parse_date
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -50,39 +49,6 @@ class TestCollections:
 
             collection = response.parse()
             assert_matches_type(Work, collection, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_method_list(self, client: MetMuseum) -> None:
-        collection = client.collections.list()
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    def test_method_list_with_all_params(self, client: MetMuseum) -> None:
-        collection = client.collections.list(
-            department_ids=[0],
-            metadata_date=parse_date("2019-12-27"),
-        )
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    def test_raw_response_list(self, client: MetMuseum) -> None:
-        response = client.collections.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        collection = response.parse()
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    def test_streaming_response_list(self, client: MetMuseum) -> None:
-        with client.collections.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            collection = response.parse()
-            assert_matches_type(Works, collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -201,39 +167,6 @@ class TestAsyncCollections:
 
             collection = await response.parse()
             assert_matches_type(Work, collection, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_list(self, async_client: AsyncMetMuseum) -> None:
-        collection = await async_client.collections.list()
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncMetMuseum) -> None:
-        collection = await async_client.collections.list(
-            department_ids=[0],
-            metadata_date=parse_date("2019-12-27"),
-        )
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    async def test_raw_response_list(self, async_client: AsyncMetMuseum) -> None:
-        response = await async_client.collections.with_raw_response.list()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        collection = await response.parse()
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncMetMuseum) -> None:
-        async with async_client.collections.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            collection = await response.parse()
-            assert_matches_type(Works, collection, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
