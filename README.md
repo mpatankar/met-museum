@@ -34,7 +34,6 @@ client = MetMuseum()
 works = client.collections.search(
     is_highlight=True,
     q="sunflower",
-    title=True,
 )
 print(works.object_ids)
 ```
@@ -54,7 +53,6 @@ async def main() -> None:
     works = await client.collections.search(
         is_highlight=True,
         q="sunflower",
-        title=True,
     )
     print(works.object_ids)
 
