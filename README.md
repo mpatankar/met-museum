@@ -31,11 +31,10 @@ from met_museum import MetMuseum
 
 client = MetMuseum()
 
-works = client.collections.search(
-    is_highlight=True,
-    q="sunflower",
+work = client.collections.retrieve(
+    150,
 )
-print(works.object_ids)
+print(work.artist_wikidata_url)
 ```
 
 ## Async usage
@@ -50,11 +49,10 @@ client = AsyncMetMuseum()
 
 
 async def main() -> None:
-    works = await client.collections.search(
-        is_highlight=True,
-        q="sunflower",
+    work = await client.collections.retrieve(
+        150,
     )
-    print(works.object_ids)
+    print(work.artist_wikidata_url)
 
 
 asyncio.run(main())
