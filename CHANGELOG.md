@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.0 (2025-03-14)
+
+Full Changelog: [v0.1.0-alpha.1...v1.0.0](https://github.com/mpatankar/met-museum/compare/v0.1.0-alpha.1...v1.0.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#4](https://github.com/mpatankar/met-museum/issues/4)) ([a360baf](https://github.com/mpatankar/met-museum/commit/a360bafeb7af06562fcd43d5f4420d03175017df))
+* **api:** update via SDK Studio ([#6](https://github.com/mpatankar/met-museum/issues/6)) ([03d3412](https://github.com/mpatankar/met-museum/commit/03d34124a106d8558285b72c549bb0629a50014b))
+* **api:** update via SDK Studio ([#7](https://github.com/mpatankar/met-museum/issues/7)) ([52b9e24](https://github.com/mpatankar/met-museum/commit/52b9e24c47909f949672b52f5bee469529e41a97))
+* **api:** update via SDK Studio ([#8](https://github.com/mpatankar/met-museum/issues/8)) ([2359f83](https://github.com/mpatankar/met-museum/commit/2359f83e288c577026e1a453539b75c088d5026a))
+
 ## 0.1.0-alpha.1 (2025-03-14)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/mpatankar/met-museum/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
