@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.5.0 (2025-03-15)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/mpatankar/met-museum/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **client:** make the title param required ([#25](https://github.com/mpatankar/met-museum/issues/25)) ([395dd27](https://github.com/mpatankar/met-museum/commit/395dd27e595cf7cce1c3d156ad263eb3f407523b))
+
+
+### Bug Fixes
+
+* **types:** handle more discriminated union shapes ([#30](https://github.com/mpatankar/met-museum/issues/30)) ([ee31779](https://github.com/mpatankar/met-museum/commit/ee31779534655f33d51fe740961e0d18a4cf1bef))
+
+
+### Chores
+
+* **internal:** bump rye to 0.44.0 ([#28](https://github.com/mpatankar/met-museum/issues/28)) ([c262da1](https://github.com/mpatankar/met-museum/commit/c262da1ce712380b7d060751430282affb71f91a))
+* **internal:** codegen related update ([#27](https://github.com/mpatankar/met-museum/issues/27)) ([b8315d2](https://github.com/mpatankar/met-museum/commit/b8315d2f7c5a02530da849c694a11f1a88a8b6de))
+
 ## 1.4.0 (2025-03-14)
 
 Full Changelog: [v1.3.0...v1.4.0](https://github.com/mpatankar/met-museum/compare/v1.3.0...v1.4.0)
