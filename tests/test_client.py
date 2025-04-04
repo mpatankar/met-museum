@@ -1508,7 +1508,7 @@ class TestAsyncMetMuseum:
         import threading
 
         from met_museum._utils import asyncify
-        from met_museum._base_client import get_platform 
+        from met_museum._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
