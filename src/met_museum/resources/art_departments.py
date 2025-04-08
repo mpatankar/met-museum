@@ -4,22 +4,20 @@ from __future__ import annotations
 
 import httpx
 
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from .._base_client import make_request_options
 from ..types.departments import Departments
 
-from .._base_client import make_request_options
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing_extensions import Literal, overload
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-
 __all__ = ["ArtDepartmentsResource", "AsyncArtDepartmentsResource"]
+
 
 class ArtDepartmentsResource(SyncAPIResource):
     @cached_property
@@ -41,20 +39,25 @@ class ArtDepartmentsResource(SyncAPIResource):
         """
         return ArtDepartmentsResourceWithStreamingResponse(self)
 
-    def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Departments:
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Departments:
         """returns a listing of all departments"""
         return self._get(
             "/departments",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Departments,
         )
+
 
 class AsyncArtDepartmentsResource(AsyncAPIResource):
     @cached_property
@@ -76,20 +79,25 @@ class AsyncArtDepartmentsResource(AsyncAPIResource):
         """
         return AsyncArtDepartmentsResourceWithStreamingResponse(self)
 
-    async def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Departments:
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Departments:
         """returns a listing of all departments"""
         return await self._get(
             "/departments",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Departments,
         )
+
 
 class ArtDepartmentsResourceWithRawResponse:
     def __init__(self, art_departments: ArtDepartmentsResource) -> None:
@@ -99,6 +107,7 @@ class ArtDepartmentsResourceWithRawResponse:
             art_departments.list,
         )
 
+
 class AsyncArtDepartmentsResourceWithRawResponse:
     def __init__(self, art_departments: AsyncArtDepartmentsResource) -> None:
         self._art_departments = art_departments
@@ -107,6 +116,7 @@ class AsyncArtDepartmentsResourceWithRawResponse:
             art_departments.list,
         )
 
+
 class ArtDepartmentsResourceWithStreamingResponse:
     def __init__(self, art_departments: ArtDepartmentsResource) -> None:
         self._art_departments = art_departments
@@ -114,6 +124,7 @@ class ArtDepartmentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             art_departments.list,
         )
+
 
 class AsyncArtDepartmentsResourceWithStreamingResponse:
     def __init__(self, art_departments: AsyncArtDepartmentsResource) -> None:
