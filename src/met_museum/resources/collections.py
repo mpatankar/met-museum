@@ -2,37 +2,32 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._compat import cached_property
-
-from ..types.work import Work
-
-from .._base_client import make_request_options
-
-from ..types.works import Works
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from typing import Iterable, Union
-
+from typing import Union, Iterable
 from datetime import date
 
+import httpx
+
+from ..types import collection_list_params, collection_search_params, collection_fast_api_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..types.work import Work
+from ..types.works import Works
+from .._base_client import make_request_options
 from ..types.collection_fast_api_response import CollectionFastAPIResponse
 
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing_extensions import Literal, overload
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import collection_list_params
-from ..types import collection_fast_api_params
-from ..types import collection_search_params
-
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
+
 
 class CollectionsResource(SyncAPIResource):
     @cached_property
@@ -54,15 +49,17 @@ class CollectionsResource(SyncAPIResource):
         """
         return CollectionsResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    object_id: int,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Work:
+    def retrieve(
+        self,
+        object_id: int,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Work:
         """
         returns a record for an object, containing all open access data about that
         object, including its image (if the image is available under Open Access)
@@ -78,20 +75,24 @@ class CollectionsResource(SyncAPIResource):
         """
         return self._get(
             f"/objects/{object_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Work,
         )
 
-    def list(self,
-    *,
-    department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-    metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Works:
+    def list(
+        self,
+        *,
+        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
+        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
 
@@ -111,22 +112,33 @@ class CollectionsResource(SyncAPIResource):
         """
         return self._get(
             "/objects",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "department_ids": department_ids,
-                "metadata_date": metadata_date,
-            }, collection_list_params.CollectionListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "department_ids": department_ids,
+                        "metadata_date": metadata_date,
+                    },
+                    collection_list_params.CollectionListParams,
+                ),
+            ),
             cast_to=Works,
         )
 
-    def fast_api(self,
-    *,
-    entry: object,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CollectionFastAPIResponse:
+    def fast_api(
+        self,
+        *,
+        entry: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CollectionFastAPIResponse:
         """
         Do Thing
 
@@ -141,33 +153,35 @@ class CollectionsResource(SyncAPIResource):
         """
         return self._post(
             "/fastapi",
-            body=maybe_transform({
-                "entry": entry
-            }, collection_fast_api_params.CollectionFastAPIParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CollectionFastAPIResponse,
         )
 
-    def search(self,
-    *,
-    is_highlight: bool,
-    q: str,
-    title: bool,
-    artist_or_culture: bool | NotGiven = NOT_GIVEN,
-    date_begin: int | NotGiven = NOT_GIVEN,
-    date_end: int | NotGiven = NOT_GIVEN,
-    department_id: int | NotGiven = NOT_GIVEN,
-    geo_location: str | NotGiven = NOT_GIVEN,
-    has_images: bool | NotGiven = NOT_GIVEN,
-    is_on_view: bool | NotGiven = NOT_GIVEN,
-    medium: str | NotGiven = NOT_GIVEN,
-    tags: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Works:
+    def search(
+        self,
+        *,
+        is_highlight: bool,
+        q: str,
+        title: bool,
+        artist_or_culture: bool | NotGiven = NOT_GIVEN,
+        date_begin: int | NotGiven = NOT_GIVEN,
+        date_end: int | NotGiven = NOT_GIVEN,
+        department_id: int | NotGiven = NOT_GIVEN,
+        geo_location: str | NotGiven = NOT_GIVEN,
+        has_images: bool | NotGiven = NOT_GIVEN,
+        is_on_view: bool | NotGiven = NOT_GIVEN,
+        medium: str | NotGiven = NOT_GIVEN,
+        tags: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
@@ -218,22 +232,32 @@ class CollectionsResource(SyncAPIResource):
         """
         return self._get(
             "/search",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "is_highlight": is_highlight,
-                "q": q,
-                "title": title,
-                "artist_or_culture": artist_or_culture,
-                "date_begin": date_begin,
-                "date_end": date_end,
-                "department_id": department_id,
-                "geo_location": geo_location,
-                "has_images": has_images,
-                "is_on_view": is_on_view,
-                "medium": medium,
-                "tags": tags,
-            }, collection_search_params.CollectionSearchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "is_highlight": is_highlight,
+                        "q": q,
+                        "title": title,
+                        "artist_or_culture": artist_or_culture,
+                        "date_begin": date_begin,
+                        "date_end": date_end,
+                        "department_id": department_id,
+                        "geo_location": geo_location,
+                        "has_images": has_images,
+                        "is_on_view": is_on_view,
+                        "medium": medium,
+                        "tags": tags,
+                    },
+                    collection_search_params.CollectionSearchParams,
+                ),
+            ),
             cast_to=Works,
         )
+
 
 class AsyncCollectionsResource(AsyncAPIResource):
     @cached_property
@@ -255,15 +279,17 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         return AsyncCollectionsResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    object_id: int,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Work:
+    async def retrieve(
+        self,
+        object_id: int,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Work:
         """
         returns a record for an object, containing all open access data about that
         object, including its image (if the image is available under Open Access)
@@ -279,20 +305,24 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         return await self._get(
             f"/objects/{object_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Work,
         )
 
-    async def list(self,
-    *,
-    department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-    metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Works:
+    async def list(
+        self,
+        *,
+        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
+        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
 
@@ -312,22 +342,33 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         return await self._get(
             "/objects",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "department_ids": department_ids,
-                "metadata_date": metadata_date,
-            }, collection_list_params.CollectionListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "department_ids": department_ids,
+                        "metadata_date": metadata_date,
+                    },
+                    collection_list_params.CollectionListParams,
+                ),
+            ),
             cast_to=Works,
         )
 
-    async def fast_api(self,
-    *,
-    entry: object,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> CollectionFastAPIResponse:
+    async def fast_api(
+        self,
+        *,
+        entry: object,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> CollectionFastAPIResponse:
         """
         Do Thing
 
@@ -342,33 +383,35 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         return await self._post(
             "/fastapi",
-            body=await async_maybe_transform({
-                "entry": entry
-            }, collection_fast_api_params.CollectionFastAPIParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=CollectionFastAPIResponse,
         )
 
-    async def search(self,
-    *,
-    is_highlight: bool,
-    q: str,
-    title: bool,
-    artist_or_culture: bool | NotGiven = NOT_GIVEN,
-    date_begin: int | NotGiven = NOT_GIVEN,
-    date_end: int | NotGiven = NOT_GIVEN,
-    department_id: int | NotGiven = NOT_GIVEN,
-    geo_location: str | NotGiven = NOT_GIVEN,
-    has_images: bool | NotGiven = NOT_GIVEN,
-    is_on_view: bool | NotGiven = NOT_GIVEN,
-    medium: str | NotGiven = NOT_GIVEN,
-    tags: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Works:
+    async def search(
+        self,
+        *,
+        is_highlight: bool,
+        q: str,
+        title: bool,
+        artist_or_culture: bool | NotGiven = NOT_GIVEN,
+        date_begin: int | NotGiven = NOT_GIVEN,
+        date_end: int | NotGiven = NOT_GIVEN,
+        department_id: int | NotGiven = NOT_GIVEN,
+        geo_location: str | NotGiven = NOT_GIVEN,
+        has_images: bool | NotGiven = NOT_GIVEN,
+        is_on_view: bool | NotGiven = NOT_GIVEN,
+        medium: str | NotGiven = NOT_GIVEN,
+        tags: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
@@ -419,22 +462,32 @@ class AsyncCollectionsResource(AsyncAPIResource):
         """
         return await self._get(
             "/search",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "is_highlight": is_highlight,
-                "q": q,
-                "title": title,
-                "artist_or_culture": artist_or_culture,
-                "date_begin": date_begin,
-                "date_end": date_end,
-                "department_id": department_id,
-                "geo_location": geo_location,
-                "has_images": has_images,
-                "is_on_view": is_on_view,
-                "medium": medium,
-                "tags": tags,
-            }, collection_search_params.CollectionSearchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "is_highlight": is_highlight,
+                        "q": q,
+                        "title": title,
+                        "artist_or_culture": artist_or_culture,
+                        "date_begin": date_begin,
+                        "date_end": date_end,
+                        "department_id": department_id,
+                        "geo_location": geo_location,
+                        "has_images": has_images,
+                        "is_on_view": is_on_view,
+                        "medium": medium,
+                        "tags": tags,
+                    },
+                    collection_search_params.CollectionSearchParams,
+                ),
+            ),
             cast_to=Works,
         )
+
 
 class CollectionsResourceWithRawResponse:
     def __init__(self, collections: CollectionsResource) -> None:
@@ -453,6 +506,7 @@ class CollectionsResourceWithRawResponse:
             collections.search,
         )
 
+
 class AsyncCollectionsResourceWithRawResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
         self._collections = collections
@@ -470,6 +524,7 @@ class AsyncCollectionsResourceWithRawResponse:
             collections.search,
         )
 
+
 class CollectionsResourceWithStreamingResponse:
     def __init__(self, collections: CollectionsResource) -> None:
         self._collections = collections
@@ -486,6 +541,7 @@ class CollectionsResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             collections.search,
         )
+
 
 class AsyncCollectionsResourceWithStreamingResponse:
     def __init__(self, collections: AsyncCollectionsResource) -> None:
