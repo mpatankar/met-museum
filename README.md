@@ -49,13 +49,15 @@ from met_museum import AsyncMetMuseum
 
 client = AsyncMetMuseum()
 
+
 async def main() -> None:
-  works = await client.collections.search(
-      is_highlight=True,
-      q="sunflower",
-      title=True,
-  )
-  print(works.object_ids)
+    works = await client.collections.search(
+        is_highlight=True,
+        q="sunflower",
+        title=True,
+    )
+    print(works.object_ids)
+
 
 asyncio.run(main())
 ```
@@ -92,7 +94,7 @@ try:
     )
 except met_museum.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__) # an underlying Exception, likely raised within httpx.
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
 except met_museum.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except met_museum.APIStatusError as e:
@@ -132,7 +134,7 @@ client = MetMuseum(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries = 5).collections.retrieve(
+client.with_options(max_retries=5).collections.retrieve(
     150,
 )
 ```
@@ -157,7 +159,7 @@ client = MetMuseum(
 )
 
 # Override per-request:
-client.with_options(timeout = 5.0).collections.retrieve(
+client.with_options(timeout=5.0).collections.retrieve(
     150,
 )
 ```
@@ -222,11 +224,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.collections.with_streaming_response.retrieve(
     150,
-) as response :
-    print(response.headers.get('X-My-Header'))
+) as response:
+    print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
-      print(line)
+        print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -280,7 +282,10 @@ from met_museum import MetMuseum, DefaultHttpxClient
 client = MetMuseum(
     # Or use the `MET_MUSEUM_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
+    http_client=DefaultHttpxClient(
+        proxy="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
 )
 ```
 

@@ -2,48 +2,48 @@
 
 from __future__ import annotations
 
-import httpx
-
 import os
+from typing import Any, Union, Mapping
+from typing_extensions import Self, override
 
-from ._streaming import AsyncStream as AsyncStream, Stream as Stream
-
-from typing import Union, Mapping, Any
-
-from typing_extensions import override, Self
-
-from ._exceptions import APIStatusError
-
-from ._utils import get_async_library
-
-from .resources import collections, art_departments
+import httpx
 
 from . import _exceptions
-
-import os
-import asyncio
-import warnings
-from typing_extensions import Literal
-
-import httpx
-
-from ._version import __version__
 from ._qs import Querystring
-from ._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, maybe_coerce_integer, maybe_coerce_float, maybe_coerce_boolean, is_given
-from ._types import Omit, NotGiven, Timeout, Transport, ProxiesTypes, RequestOptions, Headers, NoneType, Query, Body, NOT_GIVEN
+from ._types import (
+    NOT_GIVEN,
+    Omit,
+    Timeout,
+    NotGiven,
+    Transport,
+    ProxiesTypes,
+    RequestOptions,
+)
+from ._utils import (
+    is_given,
+    get_async_library,
+)
+from ._version import __version__
+from .resources import collections, art_departments
+from ._streaming import Stream as Stream, AsyncStream as AsyncStream
+from ._exceptions import APIStatusError
 from ._base_client import (
-    DEFAULT_CONNECTION_LIMITS,
-    DEFAULT_TIMEOUT,
     DEFAULT_MAX_RETRIES,
-    ResponseT,
-    SyncHttpxClientWrapper,
-    AsyncHttpxClientWrapper,
     SyncAPIClient,
     AsyncAPIClient,
-    make_request_options,
 )
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "MetMuseum", "AsyncMetMuseum", "Client", "AsyncClient"]
+__all__ = [
+    "Timeout",
+    "Transport",
+    "ProxiesTypes",
+    "RequestOptions",
+    "MetMuseum",
+    "AsyncMetMuseum",
+    "Client",
+    "AsyncClient",
+]
+
 
 class MetMuseum(SyncAPIClient):
     collections: collections.CollectionsResource
@@ -53,27 +53,44 @@ class MetMuseum(SyncAPIClient):
 
     # client options
 
-    def __init__(self, *, base_url: str | httpx.URL | None = None, timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN, max_retries: int = DEFAULT_MAX_RETRIES, default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, 
-    # Configure a custom httpx client.
-    # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
-    # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
-    http_client: httpx.Client | None = None, 
-    # Enable or disable schema validation for data returned by the API.
-    # When enabled an error APIResponseValidationError is raised
-    # if the API responds with invalid data for the expected schema.
-    # 
-    # This parameter may be removed or changed in the future.
-    # If you rely on this feature, please open a GitHub issue
-    # outlining your use-case to help us decide if it should be
-    # part of our public interface in the future.
-    _strict_response_validation: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        base_url: str | httpx.URL | None = None,
+        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        max_retries: int = DEFAULT_MAX_RETRIES,
+        default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        # Configure a custom httpx client.
+        # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
+        http_client: httpx.Client | None = None,
+        # Enable or disable schema validation for data returned by the API.
+        # When enabled an error APIResponseValidationError is raised
+        # if the API responds with invalid data for the expected schema.
+        #
+        # This parameter may be removed or changed in the future.
+        # If you rely on this feature, please open a GitHub issue
+        # outlining your use-case to help us decide if it should be
+        # part of our public interface in the future.
+        _strict_response_validation: bool = False,
+    ) -> None:
         """Construct a new synchronous MetMuseum client instance."""
         if base_url is None:
-          base_url = os.environ.get("MET_MUSEUM_BASE_URL")
+            base_url = os.environ.get("MET_MUSEUM_BASE_URL")
         if base_url is None:
-          base_url = f"https://collectionapi.metmuseum.org/public/collection/v1"
+            base_url = f"https://collectionapi.metmuseum.org/public/collection/v1"
 
-        super().__init__(version=__version__, base_url=base_url, max_retries=max_retries, timeout=timeout, http_client=http_client, custom_headers=default_headers, custom_query=default_query, _strict_response_validation=_strict_response_validation)
+        super().__init__(
+            version=__version__,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout,
+            http_client=http_client,
+            custom_headers=default_headers,
+            custom_query=default_query,
+            _strict_response_validation=_strict_response_validation,
+        )
 
         self.collections = collections.CollectionsResource(self)
         self.art_departments = art_departments.ArtDepartmentsResource(self)
@@ -89,24 +106,32 @@ class MetMuseum(SyncAPIClient):
     @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
-          **super().default_headers,
-          "X-Stainless-Async": "false",
-          **self._custom_headers,
+            **super().default_headers,
+            "X-Stainless-Async": "false",
+            **self._custom_headers,
         }
 
-    def copy(self, *, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = NOT_GIVEN, http_client: httpx.Client | None = None, max_retries: int | NotGiven = NOT_GIVEN, default_headers: Mapping[str, str] | None = None, set_default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, set_default_query: Mapping[str, object] | None = None, _extra_kwargs: Mapping[str, Any] = {}) -> Self:
+    def copy(
+        self,
+        *,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        http_client: httpx.Client | None = None,
+        max_retries: int | NotGiven = NOT_GIVEN,
+        default_headers: Mapping[str, str] | None = None,
+        set_default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        set_default_query: Mapping[str, object] | None = None,
+        _extra_kwargs: Mapping[str, Any] = {},
+    ) -> Self:
         """
         Create a new client instance re-using the same options given to the current client with optional overriding.
         """
         if default_headers is not None and set_default_headers is not None:
-          raise ValueError(
-            'The `default_headers` and `set_default_headers` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_headers` and `set_default_headers` arguments are mutually exclusive")
 
         if default_query is not None and set_default_query is not None:
-          raise ValueError(
-            'The `default_query` and `set_default_query` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_query` and `set_default_query` arguments are mutually exclusive")
 
         headers = self._custom_headers
         if default_headers is not None:
@@ -121,14 +146,28 @@ class MetMuseum(SyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(base_url=base_url or self.base_url, timeout=self.timeout if isinstance(timeout, NotGiven) else timeout, http_client=http_client, max_retries=max_retries if is_given(max_retries) else self.max_retries, default_headers=headers, default_query=params, **_extra_kwargs)
+        return self.__class__(
+            base_url=base_url or self.base_url,
+            timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
+            http_client=http_client,
+            max_retries=max_retries if is_given(max_retries) else self.max_retries,
+            default_headers=headers,
+            default_query=params,
+            **_extra_kwargs,
+        )
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
     @override
-    def _make_status_error(self, err_msg: str, *, body: object, response: httpx.Response,) -> APIStatusError:
+    def _make_status_error(
+        self,
+        err_msg: str,
+        *,
+        body: object,
+        response: httpx.Response,
+    ) -> APIStatusError:
         if response.status_code == 400:
             return _exceptions.BadRequestError(err_msg, response=response, body=body)
 
@@ -154,6 +193,7 @@ class MetMuseum(SyncAPIClient):
             return _exceptions.InternalServerError(err_msg, response=response, body=body)
         return APIStatusError(err_msg, response=response, body=body)
 
+
 class AsyncMetMuseum(AsyncAPIClient):
     collections: collections.AsyncCollectionsResource
     art_departments: art_departments.AsyncArtDepartmentsResource
@@ -162,27 +202,44 @@ class AsyncMetMuseum(AsyncAPIClient):
 
     # client options
 
-    def __init__(self, *, base_url: str | httpx.URL | None = None, timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN, max_retries: int = DEFAULT_MAX_RETRIES, default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, 
-    # Configure a custom httpx client.
-    # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
-    # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
-    http_client: httpx.AsyncClient | None = None, 
-    # Enable or disable schema validation for data returned by the API.
-    # When enabled an error APIResponseValidationError is raised
-    # if the API responds with invalid data for the expected schema.
-    # 
-    # This parameter may be removed or changed in the future.
-    # If you rely on this feature, please open a GitHub issue
-    # outlining your use-case to help us decide if it should be
-    # part of our public interface in the future.
-    _strict_response_validation: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        base_url: str | httpx.URL | None = None,
+        timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+        max_retries: int = DEFAULT_MAX_RETRIES,
+        default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        # Configure a custom httpx client.
+        # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
+        http_client: httpx.AsyncClient | None = None,
+        # Enable or disable schema validation for data returned by the API.
+        # When enabled an error APIResponseValidationError is raised
+        # if the API responds with invalid data for the expected schema.
+        #
+        # This parameter may be removed or changed in the future.
+        # If you rely on this feature, please open a GitHub issue
+        # outlining your use-case to help us decide if it should be
+        # part of our public interface in the future.
+        _strict_response_validation: bool = False,
+    ) -> None:
         """Construct a new async AsyncMetMuseum client instance."""
         if base_url is None:
-          base_url = os.environ.get("MET_MUSEUM_BASE_URL")
+            base_url = os.environ.get("MET_MUSEUM_BASE_URL")
         if base_url is None:
-          base_url = f"https://collectionapi.metmuseum.org/public/collection/v1"
+            base_url = f"https://collectionapi.metmuseum.org/public/collection/v1"
 
-        super().__init__(version=__version__, base_url=base_url, max_retries=max_retries, timeout=timeout, http_client=http_client, custom_headers=default_headers, custom_query=default_query, _strict_response_validation=_strict_response_validation)
+        super().__init__(
+            version=__version__,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout,
+            http_client=http_client,
+            custom_headers=default_headers,
+            custom_query=default_query,
+            _strict_response_validation=_strict_response_validation,
+        )
 
         self.collections = collections.AsyncCollectionsResource(self)
         self.art_departments = art_departments.AsyncArtDepartmentsResource(self)
@@ -198,24 +255,32 @@ class AsyncMetMuseum(AsyncAPIClient):
     @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
-          **super().default_headers,
-          "X-Stainless-Async": f'async:{get_async_library()}',
-          **self._custom_headers,
+            **super().default_headers,
+            "X-Stainless-Async": f"async:{get_async_library()}",
+            **self._custom_headers,
         }
 
-    def copy(self, *, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = NOT_GIVEN, http_client: httpx.AsyncClient | None = None, max_retries: int | NotGiven = NOT_GIVEN, default_headers: Mapping[str, str] | None = None, set_default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, set_default_query: Mapping[str, object] | None = None, _extra_kwargs: Mapping[str, Any] = {}) -> Self:
+    def copy(
+        self,
+        *,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
+        http_client: httpx.AsyncClient | None = None,
+        max_retries: int | NotGiven = NOT_GIVEN,
+        default_headers: Mapping[str, str] | None = None,
+        set_default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        set_default_query: Mapping[str, object] | None = None,
+        _extra_kwargs: Mapping[str, Any] = {},
+    ) -> Self:
         """
         Create a new client instance re-using the same options given to the current client with optional overriding.
         """
         if default_headers is not None and set_default_headers is not None:
-          raise ValueError(
-            'The `default_headers` and `set_default_headers` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_headers` and `set_default_headers` arguments are mutually exclusive")
 
         if default_query is not None and set_default_query is not None:
-          raise ValueError(
-            'The `default_query` and `set_default_query` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_query` and `set_default_query` arguments are mutually exclusive")
 
         headers = self._custom_headers
         if default_headers is not None:
@@ -230,14 +295,28 @@ class AsyncMetMuseum(AsyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(base_url=base_url or self.base_url, timeout=self.timeout if isinstance(timeout, NotGiven) else timeout, http_client=http_client, max_retries=max_retries if is_given(max_retries) else self.max_retries, default_headers=headers, default_query=params, **_extra_kwargs)
+        return self.__class__(
+            base_url=base_url or self.base_url,
+            timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
+            http_client=http_client,
+            max_retries=max_retries if is_given(max_retries) else self.max_retries,
+            default_headers=headers,
+            default_query=params,
+            **_extra_kwargs,
+        )
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
     @override
-    def _make_status_error(self, err_msg: str, *, body: object, response: httpx.Response,) -> APIStatusError:
+    def _make_status_error(
+        self,
+        err_msg: str,
+        *,
+        body: object,
+        response: httpx.Response,
+    ) -> APIStatusError:
         if response.status_code == 400:
             return _exceptions.BadRequestError(err_msg, response=response, body=body)
 
@@ -263,25 +342,30 @@ class AsyncMetMuseum(AsyncAPIClient):
             return _exceptions.InternalServerError(err_msg, response=response, body=body)
         return APIStatusError(err_msg, response=response, body=body)
 
+
 class MetMuseumWithRawResponse:
     def __init__(self, client: MetMuseum) -> None:
         self.collections = collections.CollectionsResourceWithRawResponse(client.collections)
         self.art_departments = art_departments.ArtDepartmentsResourceWithRawResponse(client.art_departments)
+
 
 class AsyncMetMuseumWithRawResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithRawResponse(client.collections)
         self.art_departments = art_departments.AsyncArtDepartmentsResourceWithRawResponse(client.art_departments)
 
+
 class MetMuseumWithStreamedResponse:
     def __init__(self, client: MetMuseum) -> None:
         self.collections = collections.CollectionsResourceWithStreamingResponse(client.collections)
         self.art_departments = art_departments.ArtDepartmentsResourceWithStreamingResponse(client.art_departments)
 
+
 class AsyncMetMuseumWithStreamedResponse:
     def __init__(self, client: AsyncMetMuseum) -> None:
         self.collections = collections.AsyncCollectionsResourceWithStreamingResponse(client.collections)
         self.art_departments = art_departments.AsyncArtDepartmentsResourceWithStreamingResponse(client.art_departments)
+
 
 Client = MetMuseum
 
