@@ -12,7 +12,7 @@ jobs:
   lint:
     timeout-minutes: 10
     name: lint
-    runs-on: depot-ubuntu-24.04
+    runs-on: ${{ github.repository == 'stainless-sdks/met-museum-python' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -33,7 +33,7 @@ jobs:
   test:
     timeout-minutes: 10
     name: test
-    runs-on: depot-ubuntu-24.04
+    runs-on: ${{ github.repository == 'stainless-sdks/met-museum-python' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,7 +58,7 @@ jobs:
     # and will likely fail at an earlier revision for the same reason, which doesn't indicate a breaking
     # change.
     needs: lint
-    runs-on: depot-ubuntu-24.04
+    runs-on: ${{ github.repository == 'stainless-sdks/met-museum-python' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
     steps:
       - name: Calculate fetch-depth
         run: |
