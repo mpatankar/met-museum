@@ -8,7 +8,7 @@ from datetime import date
 import httpx
 
 from ..types import collection_list_params, collection_search_params, collection_fast_api_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -55,7 +55,7 @@ class CollectionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Work:
         """
         returns a record for an object, containing all open access data about that
@@ -81,14 +81,14 @@ class CollectionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        department_ids: Iterable[int] | Omit = omit,
+        metadata_date: Union[str, date] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
@@ -134,7 +134,7 @@ class CollectionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CollectionFastAPIResponse:
         """
         Do Thing
@@ -163,21 +163,21 @@ class CollectionsResource(SyncAPIResource):
         is_highlight: bool,
         q: str,
         title: bool,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
+        artist_or_culture: bool | Omit = omit,
+        date_begin: int | Omit = omit,
+        date_end: int | Omit = omit,
+        department_id: int | Omit = omit,
+        geo_location: str | Omit = omit,
+        has_images: bool | Omit = omit,
+        is_on_view: bool | Omit = omit,
+        medium: str | Omit = omit,
+        tags: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
@@ -285,7 +285,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Work:
         """
         returns a record for an object, containing all open access data about that
@@ -311,14 +311,14 @@ class AsyncCollectionsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        department_ids: Iterable[int] | Omit = omit,
+        metadata_date: Union[str, date] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
@@ -364,7 +364,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CollectionFastAPIResponse:
         """
         Do Thing
@@ -393,21 +393,21 @@ class AsyncCollectionsResource(AsyncAPIResource):
         is_highlight: bool,
         q: str,
         title: bool,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
+        artist_or_culture: bool | Omit = omit,
+        date_begin: int | Omit = omit,
+        date_end: int | Omit = omit,
+        department_id: int | Omit = omit,
+        geo_location: str | Omit = omit,
+        has_images: bool | Omit = omit,
+        is_on_view: bool | Omit = omit,
+        medium: str | Omit = omit,
+        tags: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
