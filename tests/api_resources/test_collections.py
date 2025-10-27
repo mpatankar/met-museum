@@ -125,24 +125,6 @@ class TestCollections:
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
-    def test_method_search_with_all_params(self, client: MetMuseum) -> None:
-        collection = client.collections.search(
-            q="q",
-            artist_or_culture=True,
-            date_begin=0,
-            date_end=0,
-            department_id=0,
-            geo_location="geoLocation",
-            has_images=True,
-            is_highlight=True,
-            is_on_view=True,
-            medium="medium",
-            tags=True,
-            title=True,
-        )
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
     def test_raw_response_search(self, client: MetMuseum) -> None:
         response = client.collections.with_raw_response.search(
             q="q",
@@ -271,24 +253,6 @@ class TestAsyncCollections:
     async def test_method_search(self, async_client: AsyncMetMuseum) -> None:
         collection = await async_client.collections.search(
             q="q",
-        )
-        assert_matches_type(Works, collection, path=["response"])
-
-    @parametrize
-    async def test_method_search_with_all_params(self, async_client: AsyncMetMuseum) -> None:
-        collection = await async_client.collections.search(
-            q="q",
-            artist_or_culture=True,
-            date_begin=0,
-            date_end=0,
-            department_id=0,
-            geo_location="geoLocation",
-            has_images=True,
-            is_highlight=True,
-            is_on_view=True,
-            medium="medium",
-            tags=True,
-            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
