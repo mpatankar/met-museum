@@ -120,36 +120,32 @@ class TestCollections:
     @parametrize
     def test_method_search(self, client: MetMuseum) -> None:
         collection = client.collections.search(
-            is_highlight=True,
             q="q",
-            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
     def test_method_search_with_all_params(self, client: MetMuseum) -> None:
         collection = client.collections.search(
-            is_highlight=True,
             q="q",
-            title=True,
             artist_or_culture=True,
             date_begin=0,
             date_end=0,
             department_id=0,
             geo_location="geoLocation",
             has_images=True,
+            is_highlight=True,
             is_on_view=True,
             medium="medium",
             tags=True,
+            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
     def test_raw_response_search(self, client: MetMuseum) -> None:
         response = client.collections.with_raw_response.search(
-            is_highlight=True,
             q="q",
-            title=True,
         )
 
         assert response.is_closed is True
@@ -160,9 +156,7 @@ class TestCollections:
     @parametrize
     def test_streaming_response_search(self, client: MetMuseum) -> None:
         with client.collections.with_streaming_response.search(
-            is_highlight=True,
             q="q",
-            title=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -276,36 +270,32 @@ class TestAsyncCollections:
     @parametrize
     async def test_method_search(self, async_client: AsyncMetMuseum) -> None:
         collection = await async_client.collections.search(
-            is_highlight=True,
             q="q",
-            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncMetMuseum) -> None:
         collection = await async_client.collections.search(
-            is_highlight=True,
             q="q",
-            title=True,
             artist_or_culture=True,
             date_begin=0,
             date_end=0,
             department_id=0,
             geo_location="geoLocation",
             has_images=True,
+            is_highlight=True,
             is_on_view=True,
             medium="medium",
             tags=True,
+            title=True,
         )
         assert_matches_type(Works, collection, path=["response"])
 
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncMetMuseum) -> None:
         response = await async_client.collections.with_raw_response.search(
-            is_highlight=True,
             q="q",
-            title=True,
         )
 
         assert response.is_closed is True
@@ -316,9 +306,7 @@ class TestAsyncCollections:
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncMetMuseum) -> None:
         async with async_client.collections.with_streaming_response.search(
-            is_highlight=True,
             q="q",
-            title=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
