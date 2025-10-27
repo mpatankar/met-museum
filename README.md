@@ -33,9 +33,8 @@ from met_museum import MetMuseum
 client = MetMuseum()
 
 works = client.collections.search(
-    is_highlight=True,
     q="sunflower",
-    title=True,
+    is_highlight=True,
 )
 print(works.object_ids)
 ```
@@ -53,9 +52,8 @@ client = AsyncMetMuseum()
 
 async def main() -> None:
     works = await client.collections.search(
-        is_highlight=True,
         q="sunflower",
-        title=True,
+        is_highlight=True,
     )
     print(works.object_ids)
 
@@ -89,9 +87,8 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         works = await client.collections.search(
-            is_highlight=True,
             q="sunflower",
-            title=True,
+            is_highlight=True,
         )
         print(works.object_ids)
 

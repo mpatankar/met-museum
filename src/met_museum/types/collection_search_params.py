@@ -10,23 +10,10 @@ __all__ = ["CollectionSearchParams"]
 
 
 class CollectionSearchParams(TypedDict, total=False):
-    is_highlight: Required[Annotated[bool, PropertyInfo(alias="isHighlight")]]
-    """Returns objects that match the query and are designated as highlights.
-
-    Highlights are selected works of art from The Met Museum’s permanent collection
-    representing different cultures and time periods.
-    """
-
     q: Required[str]
     """
     Returns a listing of all Object IDs for objects that contain the search query
     within the object’s data
-    """
-
-    title: Required[bool]
-    """
-    Returns objects that match the query, specifically searching against the title
-    field for objects.
     """
 
     artist_or_culture: Annotated[bool, PropertyInfo(alias="artistOrCulture")]
@@ -59,6 +46,13 @@ class CollectionSearchParams(TypedDict, total=False):
     has_images: Annotated[bool, PropertyInfo(alias="hasImages")]
     """Returns objects that match the query and have images."""
 
+    is_highlight: Annotated[bool, PropertyInfo(alias="isHighlight")]
+    """Returns objects that match the query and are designated as highlights.
+
+    Highlights are selected works of art from The Met Museum’s permanent collection
+    representing different cultures and time periods.
+    """
+
     is_on_view: Annotated[bool, PropertyInfo(alias="isOnView")]
     """Returns objects that match the query and are on view in the museum."""
 
@@ -73,4 +67,10 @@ class CollectionSearchParams(TypedDict, total=False):
     """
     Returns objects that match the query, specifically searching against the subject
     keyword tags field for objects.
+    """
+
+    title: bool
+    """
+    Returns objects that match the query, specifically searching against the title
+    field for objects.
     """
