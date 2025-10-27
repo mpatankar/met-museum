@@ -161,17 +161,6 @@ class CollectionsResource(SyncAPIResource):
         self,
         *,
         q: str,
-        artist_or_culture: bool | Omit = omit,
-        date_begin: int | Omit = omit,
-        date_end: int | Omit = omit,
-        department_id: int | Omit = omit,
-        geo_location: str | Omit = omit,
-        has_images: bool | Omit = omit,
-        is_highlight: bool | Omit = omit,
-        is_on_view: bool | Omit = omit,
-        medium: str | Omit = omit,
-        tags: bool | Omit = omit,
-        title: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,38 +175,6 @@ class CollectionsResource(SyncAPIResource):
         Args:
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           extra_headers: Send extra headers
 
@@ -234,23 +191,7 @@ class CollectionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_highlight": is_highlight,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    collection_search_params.CollectionSearchParams,
-                ),
+                query=maybe_transform({"q": q}, collection_search_params.CollectionSearchParams),
             ),
             cast_to=Works,
         )
@@ -391,17 +332,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
         self,
         *,
         q: str,
-        artist_or_culture: bool | Omit = omit,
-        date_begin: int | Omit = omit,
-        date_end: int | Omit = omit,
-        department_id: int | Omit = omit,
-        geo_location: str | Omit = omit,
-        has_images: bool | Omit = omit,
-        is_highlight: bool | Omit = omit,
-        is_on_view: bool | Omit = omit,
-        medium: str | Omit = omit,
-        tags: bool | Omit = omit,
-        title: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,38 +346,6 @@ class AsyncCollectionsResource(AsyncAPIResource):
         Args:
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           extra_headers: Send extra headers
 
@@ -464,23 +362,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_highlight": is_highlight,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    collection_search_params.CollectionSearchParams,
-                ),
+                query=await async_maybe_transform({"q": q}, collection_search_params.CollectionSearchParams),
             ),
             cast_to=Works,
         )
