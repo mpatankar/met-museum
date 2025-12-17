@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import collections, art_departments
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -29,6 +29,11 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+
+if TYPE_CHECKING:
+    from .resources import collections, art_departments
+    from .resources.collections import CollectionsResource, AsyncCollectionsResource
+    from .resources.art_departments import ArtDepartmentsResource, AsyncArtDepartmentsResource
 
 __all__ = [
     "Timeout",
@@ -43,11 +48,6 @@ __all__ = [
 
 
 class MetMuseum(SyncAPIClient):
-    collections: collections.CollectionsResource
-    art_departments: art_departments.ArtDepartmentsResource
-    with_raw_response: MetMuseumWithRawResponse
-    with_streaming_response: MetMuseumWithStreamedResponse
-
     # client options
 
     def __init__(
@@ -89,10 +89,25 @@ class MetMuseum(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.collections = collections.CollectionsResource(self)
-        self.art_departments = art_departments.ArtDepartmentsResource(self)
-        self.with_raw_response = MetMuseumWithRawResponse(self)
-        self.with_streaming_response = MetMuseumWithStreamedResponse(self)
+    @cached_property
+    def collections(self) -> CollectionsResource:
+        from .resources.collections import CollectionsResource
+
+        return CollectionsResource(self)
+
+    @cached_property
+    def art_departments(self) -> ArtDepartmentsResource:
+        from .resources.art_departments import ArtDepartmentsResource
+
+        return ArtDepartmentsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> MetMuseumWithRawResponse:
+        return MetMuseumWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> MetMuseumWithStreamedResponse:
+        return MetMuseumWithStreamedResponse(self)
 
     @property
     @override
@@ -192,11 +207,6 @@ class MetMuseum(SyncAPIClient):
 
 
 class AsyncMetMuseum(AsyncAPIClient):
-    collections: collections.AsyncCollectionsResource
-    art_departments: art_departments.AsyncArtDepartmentsResource
-    with_raw_response: AsyncMetMuseumWithRawResponse
-    with_streaming_response: AsyncMetMuseumWithStreamedResponse
-
     # client options
 
     def __init__(
@@ -238,10 +248,25 @@ class AsyncMetMuseum(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.collections = collections.AsyncCollectionsResource(self)
-        self.art_departments = art_departments.AsyncArtDepartmentsResource(self)
-        self.with_raw_response = AsyncMetMuseumWithRawResponse(self)
-        self.with_streaming_response = AsyncMetMuseumWithStreamedResponse(self)
+    @cached_property
+    def collections(self) -> AsyncCollectionsResource:
+        from .resources.collections import AsyncCollectionsResource
+
+        return AsyncCollectionsResource(self)
+
+    @cached_property
+    def art_departments(self) -> AsyncArtDepartmentsResource:
+        from .resources.art_departments import AsyncArtDepartmentsResource
+
+        return AsyncArtDepartmentsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncMetMuseumWithRawResponse:
+        return AsyncMetMuseumWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncMetMuseumWithStreamedResponse:
+        return AsyncMetMuseumWithStreamedResponse(self)
 
     @property
     @override
@@ -341,27 +366,79 @@ class AsyncMetMuseum(AsyncAPIClient):
 
 
 class MetMuseumWithRawResponse:
+    _client: MetMuseum
+
     def __init__(self, client: MetMuseum) -> None:
-        self.collections = collections.CollectionsResourceWithRawResponse(client.collections)
-        self.art_departments = art_departments.ArtDepartmentsResourceWithRawResponse(client.art_departments)
+        self._client = client
+
+    @cached_property
+    def collections(self) -> collections.CollectionsResourceWithRawResponse:
+        from .resources.collections import CollectionsResourceWithRawResponse
+
+        return CollectionsResourceWithRawResponse(self._client.collections)
+
+    @cached_property
+    def art_departments(self) -> art_departments.ArtDepartmentsResourceWithRawResponse:
+        from .resources.art_departments import ArtDepartmentsResourceWithRawResponse
+
+        return ArtDepartmentsResourceWithRawResponse(self._client.art_departments)
 
 
 class AsyncMetMuseumWithRawResponse:
+    _client: AsyncMetMuseum
+
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.collections = collections.AsyncCollectionsResourceWithRawResponse(client.collections)
-        self.art_departments = art_departments.AsyncArtDepartmentsResourceWithRawResponse(client.art_departments)
+        self._client = client
+
+    @cached_property
+    def collections(self) -> collections.AsyncCollectionsResourceWithRawResponse:
+        from .resources.collections import AsyncCollectionsResourceWithRawResponse
+
+        return AsyncCollectionsResourceWithRawResponse(self._client.collections)
+
+    @cached_property
+    def art_departments(self) -> art_departments.AsyncArtDepartmentsResourceWithRawResponse:
+        from .resources.art_departments import AsyncArtDepartmentsResourceWithRawResponse
+
+        return AsyncArtDepartmentsResourceWithRawResponse(self._client.art_departments)
 
 
 class MetMuseumWithStreamedResponse:
+    _client: MetMuseum
+
     def __init__(self, client: MetMuseum) -> None:
-        self.collections = collections.CollectionsResourceWithStreamingResponse(client.collections)
-        self.art_departments = art_departments.ArtDepartmentsResourceWithStreamingResponse(client.art_departments)
+        self._client = client
+
+    @cached_property
+    def collections(self) -> collections.CollectionsResourceWithStreamingResponse:
+        from .resources.collections import CollectionsResourceWithStreamingResponse
+
+        return CollectionsResourceWithStreamingResponse(self._client.collections)
+
+    @cached_property
+    def art_departments(self) -> art_departments.ArtDepartmentsResourceWithStreamingResponse:
+        from .resources.art_departments import ArtDepartmentsResourceWithStreamingResponse
+
+        return ArtDepartmentsResourceWithStreamingResponse(self._client.art_departments)
 
 
 class AsyncMetMuseumWithStreamedResponse:
+    _client: AsyncMetMuseum
+
     def __init__(self, client: AsyncMetMuseum) -> None:
-        self.collections = collections.AsyncCollectionsResourceWithStreamingResponse(client.collections)
-        self.art_departments = art_departments.AsyncArtDepartmentsResourceWithStreamingResponse(client.art_departments)
+        self._client = client
+
+    @cached_property
+    def collections(self) -> collections.AsyncCollectionsResourceWithStreamingResponse:
+        from .resources.collections import AsyncCollectionsResourceWithStreamingResponse
+
+        return AsyncCollectionsResourceWithStreamingResponse(self._client.collections)
+
+    @cached_property
+    def art_departments(self) -> art_departments.AsyncArtDepartmentsResourceWithStreamingResponse:
+        from .resources.art_departments import AsyncArtDepartmentsResourceWithStreamingResponse
+
+        return AsyncArtDepartmentsResourceWithStreamingResponse(self._client.art_departments)
 
 
 Client = MetMuseum
