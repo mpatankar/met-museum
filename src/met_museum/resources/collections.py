@@ -7,12 +7,9 @@ from datetime import date
 
 import httpx
 
-from ..types import collection_list_params, collection_search_params, collection_fast_api_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..types import collection_list_params, collection_search_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -24,7 +21,6 @@ from .._response import (
 from ..types.work import Work
 from ..types.works import Works
 from .._base_client import make_request_options
-from ..types.collection_fast_api_response import CollectionFastAPIResponse
 
 __all__ = ["CollectionsResource", "AsyncCollectionsResource"]
 
@@ -58,7 +54,7 @@ class CollectionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Work:
         """
         returns a record for an object, containing all open access data about that
@@ -84,14 +80,14 @@ class CollectionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        department_ids: Iterable[int] | Omit = omit,
+        metadata_date: Union[str, date] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
@@ -128,99 +124,24 @@ class CollectionsResource(SyncAPIResource):
             cast_to=Works,
         )
 
-    def fast_api(
-        self,
-        *,
-        entry: object,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CollectionFastAPIResponse:
-        """
-        Do Thing
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/fastapi",
-            body=maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CollectionFastAPIResponse,
-        )
-
     def search(
         self,
         *,
-        is_highlight: bool,
         q: str,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
-        title: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
 
         Args:
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           extra_headers: Send extra headers
 
@@ -237,23 +158,7 @@ class CollectionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "is_highlight": is_highlight,
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    collection_search_params.CollectionSearchParams,
-                ),
+                query=maybe_transform({"q": q}, collection_search_params.CollectionSearchParams),
             ),
             cast_to=Works,
         )
@@ -288,7 +193,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Work:
         """
         returns a record for an object, containing all open access data about that
@@ -314,14 +219,14 @@ class AsyncCollectionsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        department_ids: Iterable[int] | NotGiven = NOT_GIVEN,
-        metadata_date: Union[str, date] | NotGiven = NOT_GIVEN,
+        department_ids: Iterable[int] | Omit = omit,
+        metadata_date: Union[str, date] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all valid Object IDs available to use
@@ -358,99 +263,24 @@ class AsyncCollectionsResource(AsyncAPIResource):
             cast_to=Works,
         )
 
-    async def fast_api(
-        self,
-        *,
-        entry: object,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CollectionFastAPIResponse:
-        """
-        Do Thing
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/fastapi",
-            body=await async_maybe_transform({"entry": entry}, collection_fast_api_params.CollectionFastAPIParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CollectionFastAPIResponse,
-        )
-
     async def search(
         self,
         *,
-        is_highlight: bool,
         q: str,
-        artist_or_culture: bool | NotGiven = NOT_GIVEN,
-        date_begin: int | NotGiven = NOT_GIVEN,
-        date_end: int | NotGiven = NOT_GIVEN,
-        department_id: int | NotGiven = NOT_GIVEN,
-        geo_location: str | NotGiven = NOT_GIVEN,
-        has_images: bool | NotGiven = NOT_GIVEN,
-        is_on_view: bool | NotGiven = NOT_GIVEN,
-        medium: str | NotGiven = NOT_GIVEN,
-        tags: bool | NotGiven = NOT_GIVEN,
-        title: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Works:
         """
         returns a listing of all Object IDs for objects that contain the search query
         within the object’s data
 
         Args:
-          is_highlight: Returns objects that match the query and are designated as highlights.
-              Highlights are selected works of art from The Met Museum’s permanent collection
-              representing different cultures and time periods.
-
           q: Returns a listing of all Object IDs for objects that contain the search query
               within the object’s data
-
-          artist_or_culture: Returns objects that match the query, specifically searching against the artist
-              name or culture field for objects.
-
-          date_begin: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          date_end: Returns objects that match the query and fall between the dateBegin and dateEnd
-              parameters. Examples include dateBegin=1700&dateEnd=1800
-
-          department_id: Returns objects that are a part of a specific department.
-
-          geo_location: Returns objects that match the query and the specified geographic location.
-              Examples include "Europe", "France", "Paris", "China", "New York", etc.
-
-          has_images: Returns objects that match the query and have images.
-
-          is_on_view: Returns objects that match the query and are on view in the museum.
-
-          medium: Returns objects that match the query and are of the specified medium or object
-              type. Examples include "Ceramics", "Furniture", "Paintings", "Sculpture",
-              "Textiles", etc.
-
-          tags: Returns objects that match the query, specifically searching against the subject
-              keyword tags field for objects.
-
-          title: Returns objects that match the query, specifically searching against the title
-              field for objects.
 
           extra_headers: Send extra headers
 
@@ -467,23 +297,7 @@ class AsyncCollectionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "is_highlight": is_highlight,
-                        "q": q,
-                        "artist_or_culture": artist_or_culture,
-                        "date_begin": date_begin,
-                        "date_end": date_end,
-                        "department_id": department_id,
-                        "geo_location": geo_location,
-                        "has_images": has_images,
-                        "is_on_view": is_on_view,
-                        "medium": medium,
-                        "tags": tags,
-                        "title": title,
-                    },
-                    collection_search_params.CollectionSearchParams,
-                ),
+                query=await async_maybe_transform({"q": q}, collection_search_params.CollectionSearchParams),
             ),
             cast_to=Works,
         )
@@ -498,9 +312,6 @@ class CollectionsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             collections.list,
-        )
-        self.fast_api = to_raw_response_wrapper(
-            collections.fast_api,
         )
         self.search = to_raw_response_wrapper(
             collections.search,
@@ -517,9 +328,6 @@ class AsyncCollectionsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             collections.list,
         )
-        self.fast_api = async_to_raw_response_wrapper(
-            collections.fast_api,
-        )
         self.search = async_to_raw_response_wrapper(
             collections.search,
         )
@@ -535,9 +343,6 @@ class CollectionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             collections.list,
         )
-        self.fast_api = to_streamed_response_wrapper(
-            collections.fast_api,
-        )
         self.search = to_streamed_response_wrapper(
             collections.search,
         )
@@ -552,9 +357,6 @@ class AsyncCollectionsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             collections.list,
-        )
-        self.fast_api = async_to_streamed_response_wrapper(
-            collections.fast_api,
         )
         self.search = async_to_streamed_response_wrapper(
             collections.search,

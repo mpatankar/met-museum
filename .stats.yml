@@ -1,2 +1,4 @@
-configured_endpoints: 5
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/harvard-business-school-mpatankar%2Fmet-museum-83a8f3cb4ae7a94f5d19baeb97cd4bea1df220cccd84e4c4526d0c2450f9f368.yml
+configured_endpoints: 4
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/harvard-business-school-mpatankar%2Fmet-museum-51ca1d74516e9835326c84ce658f1de6d179e4f4b3be1fe5f83edf8203894d5f.yml
+openapi_spec_hash: 064411d3a5e3267ac275aec5a14c0010
+config_hash: 99dddd524ac5f533901ea29026628430
